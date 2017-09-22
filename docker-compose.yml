@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+  server:
+    image: node:7.8.0-alpine
+    network_mode: 'bridge'
+    ports:
+      - '8080'
+    volumes:
+      - ./server:/usr/src/app
+    working_dir: /usr/src/app
+    logging:
+      options:
+        max-size: "500k"
+    environment:
+      - NODE_ENV=development
+      - NPM_CONFIG_LOGLEVEL=info
+      - NPM_CONFIG_PROGRESS=false
+      - NPM_CONFIG_SPIN=false
+      - VIRTUAL_HOST=asgardr.app.dnt.local
+      - VIRTUAL_PORT=8080
+    command: npm run server:start

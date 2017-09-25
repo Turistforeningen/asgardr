@@ -1,4 +1,6 @@
-box: node:7.8.0
+box:
+  id: node:7.8.0-alpine
+  cmd: /bin/sh
 
 build-server:
   steps:

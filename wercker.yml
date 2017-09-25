@@ -39,7 +39,7 @@ build-server:
         repository: turistforeningen/asgardr
         registry: https://registry.hub.docker.com/v2
         tag: server-$BUILD_TAG
-        working-dir: /pipeline/source
+        working-dir: /pipeline/source/server
   after-steps:
     - turistforeningen/slack-notifier:
         url: $SLACK_WEBHOOK_URL

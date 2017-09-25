@@ -40,7 +40,7 @@ build-server:
         password: $DOCKER_REGISTRY_PASSWORD
         repository: turistforeningen/asgardr
         registry: https://registry.hub.docker.com/v2
-        tag: server-`cat .tag`
+        tag: server-$(head -1 .tag)
         working-dir: /pipeline/source/server
   after-steps:
     - turistforeningen/slack-notifier:

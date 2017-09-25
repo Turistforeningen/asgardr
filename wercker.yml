@@ -8,6 +8,7 @@ build-server:
         name: export tag environment variable
         code: |
           export BUILD_TAG=${WERCKER_GIT_COMMIT:0:9}
+          echo "build tag is $BUILD_TAG"
     - script:
         name: echo nodejs information
         code: |

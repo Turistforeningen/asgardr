@@ -1,0 +1,71 @@
+box: node:7.8.0
+
+build-server:
+  steps:
+    - script:
+        name: export tag environment variable
+        code: |
+          export BUILD_TAG=${WERCKER_GIT_COMMIT:0:9}
+    - script:
+        name: echo nodejs information
+        code: |
+          echo "node version $(node -v) running"
+          echo "npm version $(npm -v) running"
+          echo "npm registry $(npm config get registry)"
+    - script:
+        name: set yarn cache
+        code: |
+          export YARN_CACHE=$WERCKER_CACHE_DIR/yarn
+    - script:
+        name: run yarn
+        cwd: server/
+        code: |
+          HOME=$YARN_CACHE yarn
+    - script:
+        name: node security project
+        cwd: server/
+        code: |
+          npm run nsp
+    - script:
+        name: write tag file
+        cwd: server/
+        code: |
+          echo $BUILD_TAG > .tag
+    - internal/docker-push:
+        username: $DOCKER_REGISTRY_USERNAME
+        password: $DOCKER_REGISTRY_PASSWORD
+        repository: turistforeningen/asgardr
+        registry: https://registry.hub.docker.com/v2
+        tag: server-$BUILD_TAG
+        working-dir: /pipeline/source
+  after-steps:
+    - turistforeningen/slack-notifier:
+        url: $SLACK_WEBHOOK_URL
+        pipeline: build-server
+
+deploy:
+  box:
+    id: alpine:3.4
+    cmd: /bin/sh
+  steps:
+    - script:
+        name: export tag environment variable
+        code: |
+          export BUILD_TAG=${WERCKER_GIT_COMMIT:0:9}
+    - script:
+        name: install tools
+        code: |
+          apk update
+          apk add python py-pip curl
+          # docker-cloud + requests 2.14 gives error "get_environ_proxies() takes exactly 2 arguments (1 given)"
+          pip install docker-cloud "requests==2.13.0"
+    - script:
+        name: docker stack update
+        code: |
+          pip install docker-cloud
+          docker-cloud service set --image turistforeningen/asgardr:server-${BUILD_TAG} asgardr-server --sync
+          docker-cloud service redeploy --not-reuse-volumes asgardr-server --sync
+  after-steps:
+    - turistforeningen/slack-notifier:
+        url: $SLACK_WEBHOOK_URL
+        pipeline: deploy

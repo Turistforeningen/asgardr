@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "nsp": "nsp check",
     "test": "echo \"Error: no test specified\" && exit 1",
     "server:start": "nodemon --watch ./ index.js"
   },
@@ -12,6 +13,7 @@
   "dependencies": {
     "body-parser": "^1.18.1",
     "express": "^4.15.4",
-    "nodemon": "^1.12.1"
+    "nodemon": "^1.12.1",
+    "nsp": "^2.4.0"
   }
 }

@@ -35,11 +35,12 @@ build-server:
         code: |
           echo $BUILD_TAG > .tag
     - internal/docker-push:
+        disable-sync: true # http://devcenter.wercker.com/docs/faq/alpine-faq
         username: $DOCKER_REGISTRY_USERNAME
         password: $DOCKER_REGISTRY_PASSWORD
         repository: turistforeningen/asgardr
         registry: https://registry.hub.docker.com/v2
-        tag: server-$BUILD_TAG
+        tag: server-`cat .tag`
         working-dir: /pipeline/source/server
   after-steps:
     - turistforeningen/slack-notifier:

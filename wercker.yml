@@ -1,4 +1,4 @@
-box: node:7.8.0
+box: node:7.8.0-alpine
 
 build-assets:
   steps:
@@ -35,7 +35,7 @@ build-assets:
         password: $DOCKER_REGISTRY_PASSWORD
         repository: turistforeningen/asgardr
         registry: https://registry.hub.docker.com/v2
-        tag: assets-$BUILD_TAG
+        tag: assets
   after-steps:
     - turistforeningen/slack-pipeline-notifier:
         url: $SLACK_WEBHOOK_URL
@@ -78,7 +78,7 @@ build-server:
         password: $DOCKER_REGISTRY_PASSWORD
         repository: turistforeningen/asgardr
         registry: https://registry.hub.docker.com/v2
-        tag: server-$BUILD_TAG
+        tag: node
         working-dir: /pipeline/source/server
   after-steps:
     - turistforeningen/slack-notifier:
@@ -105,8 +105,7 @@ deploy:
         name: docker stack update
         code: |
           pip install docker-cloud
-          docker-cloud service set --image turistforeningen/asgardr:server-${BUILD_TAG} asgardr-server --sync
-          docker-cloud service redeploy --not-reuse-volumes asgardr-server --sync
+          docker-cloud service redeploy --not-reuse-volumes asgardr-node --sync
   after-steps:
     - turistforeningen/slack-notifier:
         url: $SLACK_WEBHOOK_URL

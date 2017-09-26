@@ -29,7 +29,7 @@ build-assets:
         name: copy to volume
         code: |
           mkdir -p /assets
-          cp -a -v /pipeline/source/client/build /assets
+          cp -a -v /pipeline/source/build /assets
     - internal/docker-push:
         username: $DOCKER_REGISTRY_USERNAME
         password: $DOCKER_REGISTRY_PASSWORD

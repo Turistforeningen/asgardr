@@ -1,4 +1,6 @@
-box: node:7.8.0-alpine
+box:
+  id: node:7.8.0-alpine
+  cmd: /bin/sh
 
 build-assets:
   steps:
@@ -76,6 +78,7 @@ build-server:
         code: |
           echo $BUILD_TAG > .tag
     - internal/docker-push:
+        disable-sync: true
         username: $DOCKER_REGISTRY_USERNAME
         password: $DOCKER_REGISTRY_PASSWORD
         repository: turistforeningen/asgardr

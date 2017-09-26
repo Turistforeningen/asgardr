@@ -26,4 +26,20 @@ asgardr-node:
     - app
     - volume-2
   volumes_from:
-    - asgardr-assets:ro
+    - 'asgardr-assets:ro'
+    - 'secrets:ro'
+asgardr-redis:
+  autoredeploy: true
+  command: redis-server --appendonly yes
+  image: 'redis:3.0'
+  restart: on-failure
+  tags:
+    - app
+    - volume-2
+secrets:
+  image: 'turistforeningen/asgardr-secrets:v1'
+  tags:
+    - app
+    - volume-2
+  volumes:
+    - /secrets

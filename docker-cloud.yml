@@ -6,6 +6,7 @@ asgardr-assets:
   volumes:
     - /assets
   command: /bin/true
+  restart: always
 asgardr-node:
   image: turistforeningen/asgardr:node
   autoredeploy: true

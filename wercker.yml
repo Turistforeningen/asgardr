@@ -30,8 +30,7 @@ build-assets:
         name: copy to volume
         cwd: client/
         code: |
-          mkdir -p /assets
-          cp -a -v ./build/ /assets
+          cp -a -v ./build /assets
     - internal/docker-push:
         disable-sync: true
         username: $DOCKER_REGISTRY_USERNAME

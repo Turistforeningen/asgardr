@@ -1,5 +1,5 @@
 asgardr-assets:
-  image: turistforeningen/asgardr:assets
+  image: 'turistforeningen/asgardr:assets'
   tags:
     - app
     - volume-2
@@ -8,7 +8,7 @@ asgardr-assets:
   command: /bin/true
   restart: always
 asgardr-node:
-  image: turistforeningen/asgardr:node
+  image: 'turistforeningen/asgardr:node'
   autoredeploy: true
   environment:
     - FORCE_SSL=true

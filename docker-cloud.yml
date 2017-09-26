@@ -1,3 +1,11 @@
+asgardr-assets:
+  image: turistforeningen/asgardr:assets-${BUILD_TAG}
+  tags:
+    - app
+    - volume-2
+  volumes:
+    - /assets
+  command: /bin/true
 asgardr-node:
   image: turistforeningen/asgardr:server-${BUILD_TAG}
   autoredeploy: true
@@ -16,3 +24,5 @@ asgardr-node:
   tags:
     - app
     - volume-2
+  volumes_from:
+    - asgardr-assets:ro

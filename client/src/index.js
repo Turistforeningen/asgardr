@@ -16,7 +16,6 @@ if (isProduction) {
 }
 
 const render = (Component) => {
-  console.log('render!');
   ReactDOM.render(
     <AppContainer>
       {React.createElement(Provider, {store}, React.createElement(Component))}

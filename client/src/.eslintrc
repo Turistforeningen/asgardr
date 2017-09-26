@@ -1,0 +1,22 @@
+{
+  "env": {
+    "browser": true
+  },
+  "plugins": ["react"],
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
+      "jsx": true,
+      "modules": true
+    }
+  },
+  "rules": {
+    "class-methods-use-this": [
+      "error", {"exceptMethods": ["render"]}
+    ],
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
+    "react/jsx-uses-react": ["error"],
+    "react/jsx-uses-vars": ["error"]
+  }
+}

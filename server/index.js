@@ -8,8 +8,11 @@ app.set('x-powered-by', false);
 
 app.use(bodyParser.json());
 
+
+const assetsUri = process.env.NODE_ENV === 'production' ? '/assets' : 'http://asgardr-client.app.dnt.local/assets';
+
 app.get('/', (req, res, next) => {
-  res.send('Hello, World!');
+  res.send(`<!doctype html><html><head><title>Den Norske Turistforening</title><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /></head><body class="editor"><div id="app" data-environment="development"></div><script type="text/javascript" src="${assetsUri}/app.js"></script></body></html>`);
 });
 
 // Start the express app

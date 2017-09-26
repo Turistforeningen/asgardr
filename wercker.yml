@@ -27,9 +27,10 @@ build-assets:
           npm run webpack:prod
     - script:
         name: copy to volume
+        cwd: client/
         code: |
           mkdir -p /assets
-          cp -a -v /pipeline/source/build /assets
+          cp -a -v ./build /assets
     - internal/docker-push:
         username: $DOCKER_REGISTRY_USERNAME
         password: $DOCKER_REGISTRY_PASSWORD

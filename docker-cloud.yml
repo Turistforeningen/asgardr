@@ -1,4 +1,4 @@
-asgardr-server:
+asgardr-node:
   image: turistforeningen/asgardr:server-${BUILD_TAG}
   autoredeploy: true
   environment:

@@ -7,7 +7,7 @@
     "nsp": "nsp check",
     "test": "echo \"Error: no test specified\" && exit 1",
     "client:start": "nodemon --watch webpack.config.js --exec \"npm run webpack:serve\"",
-    "webpack:build": "webpack --env.production --env.analyze --optimize-minimize --config webpack.config.prod.js",
+    "webpack:prod": "webpack --env.production --env.analyze --optimize-minimize --config webpack.config.prod.js",
     "webpack:serve": "webpack-dev-server --env.development --color --config webpack.config.dev.js"
   },
   "author": "",

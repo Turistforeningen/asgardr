@@ -24,7 +24,7 @@ build-assets:
         name: run webpack
         cwd: client/
         code: |
-          npm run build:prod
+          npm run webpack:prod
     - script:
         name: copy to volume
         code: |

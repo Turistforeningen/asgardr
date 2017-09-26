@@ -109,7 +109,7 @@ deploy:
         code: |
           pip install docker-cloud
           docker-cloud stack update asgardr --sync
-          docker-cloud service redeploy --not-reuse-volumes asgardr-node --sync
+          docker-cloud stack redeploy --not-reuse-volumes asgardr --sync
   after-steps:
     - turistforeningen/slack-notifier:
         url: $SLACK_WEBHOOK_URL

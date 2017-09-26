@@ -108,6 +108,7 @@ deploy:
         name: docker stack update
         code: |
           pip install docker-cloud
+          docker-cloud stack update asgardr --sync
           docker-cloud service redeploy --not-reuse-volumes asgardr-node --sync
   after-steps:
     - turistforeningen/slack-notifier:

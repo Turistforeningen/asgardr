@@ -32,7 +32,7 @@ services:
     working_dir: /usr/src/app
     logging:
       options:
-        max-size: "500k"
+        max-size: '500k'
     environment:
       - NODE_ENV=development
       - NPM_CONFIG_LOGLEVEL=info
@@ -40,4 +40,4 @@ services:
       - NPM_CONFIG_SPIN=false
       - VIRTUAL_HOST=asgardr.app.dnt.local
       - VIRTUAL_PORT=8080
-    command: npm run server:start
+    command: 'npm run server:start'

@@ -2,7 +2,8 @@
   "env": {
     "browser": true
   },
-  "plugins": ["react"],
+  "plugins": ["import", "react"],
+  "parser": "babel-eslint",
   "parserOptions": {
     "sourceType": "module",
     "ecmaFeatures": {
@@ -15,7 +16,6 @@
     "class-methods-use-this": [
       "error", {"exceptMethods": ["render"]}
     ],
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
     "react/jsx-uses-react": ["error"],
     "react/jsx-uses-vars": ["error"]
   }

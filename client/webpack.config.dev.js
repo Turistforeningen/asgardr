@@ -4,12 +4,12 @@ const webpack = require('webpack');
 module.exports = {
   devtool: 'eval',
   entry: {
-    app: [
+    invite: [
       'babel-polyfill',
       'react-hot-loader/patch',
       'webpack-dev-server/client?http://asgardr-client.app.dnt.local',
       'webpack/hot/only-dev-server',
-      './src/index',
+      './src/apps/invite/index',
     ],
   },
   output: {

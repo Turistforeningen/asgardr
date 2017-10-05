@@ -7,7 +7,7 @@ module.exports = {
     app: [
       'babel-polyfill',
       './src/index',
-    ]
+    ],
   },
   output: {
     path: path.join(__dirname, 'build'),

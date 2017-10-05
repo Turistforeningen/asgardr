@@ -2,11 +2,19 @@
 
 const bodyParser = require('body-parser');
 const express = require('express');
+const nunjucks = require('nunjucks');
+
+const {middleware: requireAuth, apiMiddleware: requireApiAuth} = require('./lib/auth');
+const redis = require('./lib/redis');
+const session = require('./lib/session');
+
 const app = express();
+const router = new express.Router();
 
 app.set('x-powered-by', false);
 
 app.use(bodyParser.json());
+app.use(session);
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -16,9 +24,47 @@ if (isProduction) {
 
 const assetsUri = isProduction ? '/assets' : 'http://asgardr-client.app.dnt.local/assets';
 
-app.get('/', (req, res, next) => {
-  res.send(`<!doctype html><html><head><title>Den Norske Turistforening</title><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /></head><body class="editor"><div id="app" data-environment="${process.env.NODE_ENV}"></div><script type="text/javascript" src="${assetsUri}/app.js"></script></body></html>`);
+const nunjucksEnvironment = nunjucks.configure('templates', {
+  autoescape: true,
+  express: app,
+  noCache: process.env.NODE_ENV !== 'production',
 });
+
+nunjucksEnvironment.addGlobal('environment', process.env.NODE_ENV);
+nunjucksEnvironment.addGlobal('assetsUri', assetsUri);
+
+router.use('/invitasjon', (req, res, next) => {
+  res.render('invite.html', {app: 'invite', code: req.query.kode});
+});
+
+router.use('/logg-inn', require('./controllers/auth'));
+
+router.get('/logg-ut', (req, res) => {
+  req.session.destroy(() => {
+    res.redirect('/');
+  });
+});
+
+router.use('/profil', requireApiAuth, (req, res, next) => {
+  redis.hgetall(req.session.user).then((data) => {
+    const user = JSON.parse(data.user);
+
+    if (req.accepts('html')) {
+      // res.render('profile.html', {user: user});
+      res.send('');
+    } else if (req.accepts('json')) {
+      res.json(user);
+    }
+  });
+});
+
+router.use('/api/turbasen', require('./lib/turbasen-api'));
+
+router.use('/', (req, res, next) => {
+  res.render('index.html');
+});
+
+app.use(process.env.VIRTUAL_PATH, router);
 
 // Start the express app
 if (!module.parent) {

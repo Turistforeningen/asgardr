@@ -1,7 +1,5 @@
 version: '2'
-
 services:
-
   client:
     image: node:7.8.0-alpine
     network_mode: 'bridge'
@@ -21,23 +19,41 @@ services:
       options:
         max-size: '500k'
     command: 'npm run client:start'
-
+  redis:
+    image: redis:3
+    network_mode: 'bridge'
+    logging:
+      options:
+        max-size: "10k"
   server:
     image: node:7.8.0-alpine
     network_mode: 'bridge'
+    links:
+      - redis
+    depends_on:
+      - redis
     ports:
       - '8080'
     volumes:
       - ./server:/usr/src/app
+    volumes_from:
+      - secrets:ro
     working_dir: /usr/src/app
     logging:
       options:
         max-size: '500k'
     environment:
       - NODE_ENV=development
+      - 'NTB_API_URL=https://dev.nasjonalturbase.no'
       - NPM_CONFIG_LOGLEVEL=info
       - NPM_CONFIG_PROGRESS=false
       - NPM_CONFIG_SPIN=false
       - VIRTUAL_HOST=asgardr.app.dnt.local
       - VIRTUAL_PORT=8080
+      - VIRTUAL_PATH=/
     command: 'npm run server:start'
+  secrets:
+    build: secrets
+    network_mode: 'bridge'
+    volumes:
+      - /secrets

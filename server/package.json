@@ -4,17 +4,30 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint --ext .js,.jsx controllers/ lib/ src/ tests/",
+    "lint:watch": "esw --color --ext .js,.jsx --watch controllers/ lib/ src/ tests/",
     "nsp": "nsp check",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server:start": "nodemon --watch ./ index.js"
+    "server:start": "nodemon --watch ./ --watch ./controllers/* --watch lib index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@starefossen/http-error": "^1.0.1",
+    "babel-eslint": "^8.0.0",
     "body-parser": "^1.18.1",
+    "connect-redis": "^3.3.0",
+    "eslint": "^4.7.2",
+    "eslint-config-airbnb-base": "^12.0.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-watch": "^3.1.2",
     "express": "^4.15.4",
+    "express-session": "^1.15.5",
     "ioredis": "^3.1.4",
+    "isomorphic-fetch": "^2.2.1",
     "nodemon": "^1.12.1",
-    "nsp": "^2.4.0"
+    "nsp": "^2.4.0",
+    "nunjucks": "^3.0.1",
+    "raven": "^2.1.2"
   }
 }

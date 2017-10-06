@@ -13,9 +13,7 @@ import {
 function appReducer(state = {}, action) {
   switch (action.type) {
     default:
-      return {
-        ...state,
-      };
+      return {...state};
   }
 }
 
@@ -40,14 +38,10 @@ function inviteReducer(state = {}, action) {
     case INVITE_ACCEPT_REQUEST:
     case INVITE_ACCEPT_RESPONSE:
     case INVITE_ACCEPT_ERROR:
-      return {
-        ...state,
-      };
+      return {...state};
 
     default:
-      return {
-        ...state,
-      };
+      return {...state};
   }
 }
 
@@ -69,9 +63,7 @@ function userReducer(state = {}, action) {
         data: action.user,
       };
     default:
-      return {
-        ...state,
-      };
+      return {...state};
   }
 }
 

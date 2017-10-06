@@ -11,14 +11,14 @@ function get(type, id) {
   let statusCode;
 
   return fetch(`${baseUri}/${type}/${id}`)
-    .then(result => {
+    .then((result) => {
       statusCode = result.status;
 
       return result.json();
     })
-    .then(json => {
+    .then((json) => {
       if (statusCode >= 400) {
-        const message = json.message || 'API request failed'
+        const message = json.message || 'API request failed';
         return Promise.reject(message);
       }
 
@@ -49,14 +49,14 @@ function save(type, id, data) {
   let statusCode;
 
   return fetch(url, options)
-    .then(result => {
+    .then((result) => {
       statusCode = result.status;
 
       return result.json();
     })
-    .then(json => {
+    .then((json) => {
       if (statusCode >= 400) {
-        const message = json.message || 'API request failed'
+        const message = json.message || 'API request failed';
         return Promise.reject(message);
       }
 
@@ -66,11 +66,14 @@ function save(type, id, data) {
 }
 
 function destroy() {
-  return Promise.reject('Not implemented');
+  return Promise.reject(new Error('Not implemented'));
 }
 
 const turbasen = {
-  get, find, save, destroy
+  get,
+  find,
+  save,
+  destroy,
 };
 
-export default turbasen
+export default turbasen;

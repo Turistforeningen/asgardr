@@ -14,7 +14,7 @@ class Confirm extends Component {
 
   @autobind
   acceptInvite() {
-    const {code, invite, user} = this.props;
+    const {invite, user} = this.props;
 
     this.props.acceptInvite(invite, user);
   }
@@ -38,8 +38,13 @@ class Confirm extends Component {
     return (
       <div>
         <h1>Bekreft</h1>
-        <div>{user.data.fornavn} {user.data.etternavn} {user.data.epost} vil bli lagt til i gruppen {group.navn}.</div>
-        <div><button type="button" onClick={this.acceptInvite}>Bekreft</button></div>
+        <div>
+          {user.data.fornavn} {user.data.etternavn} {user.data.epost}
+          vil bli lagt til i gruppen {group.navn}.
+        </div>
+        <div>
+          <button type="button" onClick={this.acceptInvite}>Bekreft</button>
+        </div>
       </div>
     );
   }

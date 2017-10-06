@@ -81,16 +81,14 @@ export function acceptInvite(code, group, user) {
         const invites = json.privat.invitasjoner;
         const users = json.privat.brukere;
 
-        const invite = invites.find((invitasjon) => (
-          invitasjon.kode === code
-        ));
+        const invite = invites.find(invitasjon => invitasjon.kode === code);
 
         if (typeof invite === 'undefined') {
-          return Promise.reject('Koden er ikke gyldig for denne gruppen');
+          return Promise.reject(new Error('Koden er ikke gyldig for denne gruppen'));
         } else if (invite.brukt === true) {
-          return Promise.reject('Koden har allerede blitt brukt');
+          return Promise.reject(new Error('Koden har allerede blitt brukt'));
         } else if (users.find(u => u.id === user.sherpa_id)) {
-          return Promise.reject('Brukeren har allerede tilgang til denne gruppen')
+          return Promise.reject(new Error('Brukeren har allerede tilgang til denne gruppen'));
         }
 
         json.privat.invitasjoner = invites.map((invitasjon) => {
@@ -102,7 +100,7 @@ export function acceptInvite(code, group, user) {
                 navn: `${user.fornavn} ${user.etternavn}`,
                 epost: user.epost,
                 id: user.sherpa_id,
-              }
+              },
             };
           }
 
@@ -120,12 +118,11 @@ export function acceptInvite(code, group, user) {
 
         return turbasen.save('grupper', group._id, json);
       })
-      .then(json => {
+      .then((json) => {
         dispatch(inviteAcceptResponse(json));
       })
-      .catch(err => {
+      .catch((err) => {
         dispatch(inviteAcceptError(err));
-        console.error(err);
       });
   };
 }
@@ -166,7 +163,7 @@ export function fetchUser() {
       })
       .then((json) => {
         if (statusCode !== 200) {
-          dispatch(receiveUser())
+          dispatch(receiveUser());
         } else {
           dispatch(receiveUser(json));
         }

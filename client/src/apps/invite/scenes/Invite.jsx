@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {BrowserRouter as Switch, Route, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import queryString from 'query-string';
 
 import {fetchInvite} from '../actions/index.js';
@@ -14,7 +14,7 @@ class Invite extends Component {
     const {invite, user, isFetching, code} = this.props;
 
     if (typeof this.props.code === 'undefined') {
-      return <div>Invitasjonskode mangler.</div>
+      return <div>Invitasjonskode mangler.</div>;
     } else if (isFetching) {
       return (
         <div>Henter invitasjon...</div>
@@ -65,7 +65,7 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = dispatch => ({
   fetchInvite: function dispacthFetchInvite(code) {
     dispatch(fetchInvite(code));
-  }
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Invite);

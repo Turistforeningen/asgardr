@@ -48,6 +48,14 @@ class Confirm extends Component {
                     <strong>{user.data.fornavn} {user.data.etternavn}</strong>,
                     med epost <strong>{user.data.epost}</strong>. {' '}
                   </Message>
+                  {
+                    invite.errors && invite.errors.length &&
+                    <Message error>
+                      {invite.errors.map(error => (
+                        <p key={error}>{error}</p>
+                      ))}
+                    </Message>
+                  }
                   <Button
                     as="a"
                     size="big"

@@ -36,9 +36,16 @@ function inviteReducer(state = {}, action) {
       };
 
     case INVITE_ACCEPT_REQUEST:
-    case INVITE_ACCEPT_RESPONSE:
-    case INVITE_ACCEPT_ERROR:
       return {...state};
+
+    case INVITE_ACCEPT_RESPONSE:
+      return {...state};
+
+    case INVITE_ACCEPT_ERROR:
+      return {
+        ...state,
+        errors: [action.error.message],
+      };
 
     default:
       return {...state};

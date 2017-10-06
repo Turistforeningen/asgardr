@@ -1,0 +1,24 @@
+body {
+  padding-top: 70px;
+}
+
+header {
+  .menu {
+    height: 50px;
+  }
+
+  a.item.logo {
+    padding: 0.5em !important;
+    background-color: #d82d20 !important;
+
+    img {
+      margin: 0 !important;
+      width: 2.4em !important;
+    }
+  }
+}
+
+// Fix for divider view
+.ui.grid > .column + .divider, .ui.grid > .row > .column + .divider {
+  left: 50%;
+}

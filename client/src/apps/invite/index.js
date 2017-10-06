@@ -4,6 +4,8 @@ import {Provider} from 'react-redux';
 import {AppContainer} from 'react-hot-loader';
 import Raven from 'raven-js';
 
+import 'semantic-ui-css/semantic.min.css';
+
 import store from './store.js';
 import {fetchInvite, fetchUser, setMessage} from './actions/index.js';
 import App from './App.jsx';

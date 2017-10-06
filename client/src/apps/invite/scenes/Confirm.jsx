@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {autobind} from 'core-decorators';
 import queryString from 'query-string';
+import {Button, Grid, Header, Message, Segment} from 'semantic-ui-react';
 
 import {fetchInvite, acceptInvite} from '../actions/index.js';
 
@@ -24,28 +25,69 @@ class Confirm extends Component {
 
     if (isFetching) {
       return null;
-    } else if (user.isAuthenticated !== true) {
-      return (
-        <div>
-          Du er ikke logget inn. Gå til <a href={`/invitasjon?kode=${code}`}>invitasjonen</a>{' '}
-          for å starte på nytt.
-        </div>
-      );
     }
 
-    const group = invite.data.gruppe;
-
     return (
-      <div>
-        <h1>Bekreft</h1>
-        <div>
-          {user.data.fornavn} {user.data.etternavn} {user.data.epost}
-          vil bli lagt til i gruppen {group.navn}.
-        </div>
-        <div>
-          <button type="button" onClick={this.acceptInvite}>Bekreft</button>
-        </div>
-      </div>
+      <Grid textAlign="center" style={{height: '100%'}} verticalAlign="middle">
+        <Grid.Column style={{maxWidth: 450}}>
+          <Segment stacked>
+            <Header as="h2">Invitasjon til {invite.data.gruppe.navn}</Header>
+            {
+              user && user.isAuthenticated ?
+                <div>
+                  <p>
+                    Når du har{' '}
+                    koblet brukeren din til gruppen får du tilgang til gruppens innhold i{' '}
+                    Nasjonal Turbase.
+                  </p>
+                  <p>
+                    Kontroller nedenfor at du er logget inn som riktig bruker, og trykk bekreft.
+                  </p>
+                  <Message success>
+                    Du er logget inn som {' '}
+                    <strong>{user.data.fornavn} {user.data.etternavn}</strong>,
+                    med epost <strong>{user.data.epost}</strong>. {' '}
+                  </Message>
+                  <Button
+                    as="a"
+                    size="big"
+                    color="green"
+                    fluid
+                    onClick={this.acceptInvite}
+                  >
+                    Bekreft
+                  </Button>
+                </div>
+              :
+                <div>
+                  <Message error>
+                    Du er ikke logget inn. For å bli med i gruppen må du være innlogget med en{' '}
+                    DNT-bruker.
+                  </Message>
+                  <Button
+                    as="a"
+                    size="big"
+                    color="blue"
+                    fluid
+                    href={`/logg-inn?next=/invitasjon/bekreft?kode=${code}`}
+                  >
+                    Logg inn
+                  </Button>
+                </div>
+            }
+          </Segment>
+          <Segment basic>
+            {
+              user && user.isAuthenticated &&
+              <p>
+                Ikke riktig bruker? Da må du først{' '}
+                <a href="https://www.dnt.no/minside/logg-ut">logge ut</a>,{' '}
+                for så å følge lenken i epost-invitasjonen på nytt.
+              </p>
+            }
+          </Segment>
+        </Grid.Column>
+      </Grid>
     );
   }
 }

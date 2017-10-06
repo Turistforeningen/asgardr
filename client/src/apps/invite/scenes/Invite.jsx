@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
 import queryString from 'query-string';
+import {Button, Grid, Header, Message, Segment} from 'semantic-ui-react';
 
 import {fetchInvite} from '../actions/index.js';
 
@@ -25,29 +25,65 @@ class Invite extends Component {
       );
     } else if (invite.isFetched) {
       return (
-        <div>
-          <p>Du er invitert til å bli med i gruppen {invite.data.gruppe.navn}.</p>
-          {
-            user && user.isAuthenticated ?
-              <div>
+        <Grid textAlign="center" style={{height: '100%'}} verticalAlign="middle">
+          <Grid.Column style={{maxWidth: 450}}>
+            <Segment stacked>
+              <Header as="h2">Invitasjon til {invite.data.gruppe.navn}</Header>
+              <p>
+                Du er invitert til å bli med i gruppen {invite.data.gruppe.navn}.
+              </p>
+              <p>
+                Når du har{' '}
+                koblet brukeren din til gruppen får du tilgang til gruppens innhold i{' '}
+                Nasjonal Turbase.
+              </p>
+              {
+                user && user.isAuthenticated ?
+                  <div>
+                    <Message info>
+                      Du er logget inn som {' '}
+                      <strong>{user.data.fornavn} {user.data.etternavn}</strong>,
+                      med epost <strong>{user.data.epost}</strong>. {' '}
+                      Gå videre hvis dette er brukeren som skal legges til i gruppen.
+                    </Message>
+                    <Button
+                      as="a"
+                      size="big"
+                      color="blue"
+                      fluid
+                      href={`/invitasjon/bekreft?kode=${code}`}
+                    >
+                      Gå videre
+                    </Button>
+                  </div>
+                :
+                  <div>
+                    <p>
+                      For å bli med i gruppen må du logge inn med din DNT-bruker. Hvis du {' '}
+                      ikke har en DNT-bruker kan du opprette en.
+                    </p>
+                    <Button
+                      as="a"
+                      size="big"
+                      color="blue"
+                      fluid
+                      href={`/logg-inn?next=/invitasjon/bekreft?kode=${code}`}
+                    >
+                      Gå videre
+                    </Button>
+                  </div>
+              }
+            </Segment>
+            <Segment basic>
+              {
+                user && user.isAuthenticated &&
                 <p>
-                  Du er logget inn som {user.data.fornavn} {user.data.etternavn} med epost {' '}
-                  {user.data.epost}. {' '}
-                  <Link to={`/bekreft?kode=${code}`}>Gå videre</Link> for å bli med i gruppen.
+                  Ikke deg? Da må du <a href="https://www.dnt.no/logg-ut">logge ut</a> først for å koble riktig bruker til gruppen.
                 </p>
-                <p>
-                  Ikke deg? Logg ut, og inn igjen med en annen bruker dersom det ikke er denne
-                  brukeren som skal legges til i gruppen.
-                </p>
-              </div>
-            :
-              <div>
-                For å bli med i gruppen må du logge inn med din DNT-bruker. Hvis du ikke har en
-                DNT-bruker kan du opprette en. {' '}
-                <a href={`/logg-inn?next=/invitasjon/bekreft?kode=${code}`}>Gå videre</a>
-              </div>
-          }
-        </div>
+              }
+            </Segment>
+          </Grid.Column>
+        </Grid>
       );
     }
 

@@ -21,6 +21,9 @@ asgardr-node:
     - VIRTUAL_PORT=8080
   expose:
     - '8080'
+  links:
+    - 'asgardr-redis:redis'
+    - 'statsd.statsd-librato:statsd'
   restart: always
   command: node index.js
   tags:

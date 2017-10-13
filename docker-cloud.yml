@@ -14,6 +14,7 @@ asgardr-node:
     - FORCE_SSL=true
     - HSTS_MAX_AGE=31536000
     - NODE_ENV=production
+    - 'NTB_API_URL=https://api.nasjonalturbase.no'
     - 'VIRTUAL_HOST=http://asgardr.app.dnt.no*,https://asgardr.app.dnt.no*'
     - VIRTUAL_HOST_WEIGHT=20
     - VIRTUAL_PATH=/

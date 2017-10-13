@@ -97,9 +97,9 @@ export function acceptInvite(code, group, user) {
               ...invite,
               brukt: true,
               brukt_av: {
+                id: user.sherpa_id,
                 navn: `${user.fornavn} ${user.etternavn}`,
                 epost: user.epost,
-                id: user.sherpa_id,
               },
             };
           }
@@ -110,9 +110,9 @@ export function acceptInvite(code, group, user) {
         json.privat.brukere = [
           ...users,
           {
+            id: user.sherpa_id,
             navn: `${user.fornavn} ${user.etternavn}`,
             epost: user.epost,
-            id: user.sherpa_id,
           },
         ];
 

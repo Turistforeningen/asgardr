@@ -62,7 +62,7 @@ router.all('*', (req, res, next) => {
       }
     })
     .catch((err) => {
-      console.error(err);
+      console.error(err); // eslint-disable-line
       res.json({message: 'An error occurred.'});
     });
 });

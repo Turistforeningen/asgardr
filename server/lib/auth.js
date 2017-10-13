@@ -1,8 +1,6 @@
 'use strict';
 
-const HttpError = require('@starefossen/http-error');
 const redis = require('./redis');
-
 
 exports.apiMiddleware = (req, res, next) => {
   if (!req.session.user) {

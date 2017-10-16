@@ -33,7 +33,14 @@ function find(type, params) {
     .join('&');
 
   return fetch(`${baseUri}/${type}?${queryString}`)
-    .then(result => result.json())
+    .then((result) => {
+      if (statusCode >= 400) {
+        const message = json.message || 'API request failed';
+        return Promise.reject(message);
+      }
+
+      return result.json();
+    })
     .catch((err) => { throw new Error(err); });
 }
 
@@ -50,17 +57,12 @@ function save(type, id, data) {
 
   return fetch(url, options)
     .then((result) => {
-      statusCode = result.status;
-
-      return result.json();
-    })
-    .then((json) => {
       if (statusCode >= 400) {
         const message = json.message || 'API request failed';
         return Promise.reject(message);
       }
 
-      return json;
+      return result.json();
     })
     .catch((err) => { throw new Error(err); });
 }

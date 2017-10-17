@@ -11,26 +11,30 @@ exports.apiMiddleware = (req, res, next) => {
     .then((data) => {
       const user = JSON.parse(data.user);
 
-      if (user.is_admin !== true) {
-        return res.status(401).json({code: 401, message: 'Who are you?'});
+      if (user) {
+        return next();
       }
 
-      return next();
+      return res.status(401).json({code: 401, message: 'Who are you?'});
     })
     .catch(err => res.status(401).json({code: 401, message: 'Who are you?'}));
 };
 
 exports.middleware = (req, res, next) => {
-  redis.hgetall(req.session.user)
+  if (!req.session.user) {
+    return res.redirect(`/?next=${req.originalUrl}`);
+  }
+
+  return redis.hgetall(req.session.user)
     .then((data) => { // eslint-disable-line consistent-return
       const user = JSON.parse(data.user);
 
       // TODO(Håvard): Let user know why it was redirected to login page
-      if (user.is_admin !== true) {
-        return res.redirect(`/?next=${req.originalUrl}`);
+      if (user) {
+        return next();
       }
 
-      next();
+      return res.redirect(`/?next=${req.originalUrl}`);
     })
     .catch((err) => { // eslint-disable-line arrow-body-style
       return res.redirect(`/?next=${req.originalUrl}`);

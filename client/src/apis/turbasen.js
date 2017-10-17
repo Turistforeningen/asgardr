@@ -8,21 +8,14 @@ const baseOptions = {
 };
 
 function get(type, id) {
-  let statusCode;
-
   return fetch(`${baseUri}/${type}/${id}`)
     .then((result) => {
-      statusCode = result.status;
-
-      return result.json();
-    })
-    .then((json) => {
-      if (statusCode >= 400) {
+      if (result.status >= 400) {
         const message = json.message || 'API request failed';
         return Promise.reject(message);
       }
 
-      return json;
+      return result.json();
     })
     .catch((err) => { throw new Error(err); });
 }
@@ -34,7 +27,7 @@ function find(type, params) {
 
   return fetch(`${baseUri}/${type}?${queryString}`)
     .then((result) => {
-      if (statusCode >= 400) {
+      if (result.status >= 400) {
         const message = json.message || 'API request failed';
         return Promise.reject(message);
       }
@@ -53,11 +46,9 @@ function save(type, id, data) {
     body: JSON.stringify(data),
   };
 
-  let statusCode;
-
   return fetch(url, options)
     .then((result) => {
-      if (statusCode >= 400) {
+      if (result.status >= 400) {
         const message = json.message || 'API request failed';
         return Promise.reject(message);
       }

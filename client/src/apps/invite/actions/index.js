@@ -91,8 +91,8 @@ export function acceptInvite(code, group, user) {
     return turbasen
       .get('grupper', group._id)
       .then((json) => {
-        const invites = json.privat.invitasjoner;
-        const users = json.privat.brukere;
+        const invites = json.privat.invitasjoner || [];
+        const users = json.privat.brukere || [];
 
         const invite = invites.find(invitasjon => invitasjon.kode === code);
 

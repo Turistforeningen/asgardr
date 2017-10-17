@@ -14,7 +14,7 @@ const appContainer = document.getElementById('app');
 const isProduction = appContainer.dataset.environment === 'production';
 
 if (isProduction) {
-  Raven.config('https://06b9fcd4ece146d7ada1f633f07c7d00@sentry.io/172560').install();
+  Raven.config('https://39837588ca2444d4813af4fb16931594@sentry.io/222695').install();
 }
 
 store.dispatch(fetchUser());

@@ -34,38 +34,50 @@ class Confirm extends Component {
             <Header as="h2">Invitasjon til {invite.data.gruppe.navn}</Header>
             {
               user && user.isAuthenticated ?
-                <div>
-                  <p>
-                    Når du har{' '}
-                    koblet brukeren din til gruppen får du tilgang til gruppens innhold i{' '}
-                    Nasjonal Turbase.
-                  </p>
-                  <p>
-                    Kontroller nedenfor at du er logget inn som riktig bruker, og trykk bekreft.
-                  </p>
-                  <Message success>
-                    Du er logget inn som {' '}
-                    <strong>{user.data.fornavn} {user.data.etternavn}</strong>,
-                    med epost <strong>{user.data.epost}</strong>. {' '}
-                  </Message>
-                  {
-                    invite.errors && invite.errors.length &&
-                    <Message error>
-                      {invite.errors.map(error => (
-                        <p key={error}>{error}</p>
-                      ))}
+                invite && invite.isAccepted ?
+                  <div>
+                    <p>
+                      Gratulerer! Du er nå medlem av gruppen {invite.data.gruppe.navn} og har{' '}
+                      tilgang til gruppen sitt innhold i Nasjonal Turbase.
+                    </p>
+                    <p>
+                      Gå til f.eks. <a href="https://tur.app.dnt.no">turforslag</a> eller{' '}
+                      <a href="https://hytte.app.dnt.no">hytter</a>.
+                    </p>
+                  </div>
+                :
+                  <div>
+                    <p>
+                      Når du har{' '}
+                      koblet brukeren din til gruppen får du tilgang til gruppens innhold i{' '}
+                      Nasjonal Turbase.
+                    </p>
+                    <p>
+                      Kontroller nedenfor at du er logget inn som riktig bruker, og trykk bekreft.
+                    </p>
+                    <Message success>
+                      Du er logget inn som {' '}
+                      <strong>{user.data.fornavn} {user.data.etternavn}</strong>,
+                      med epost <strong>{user.data.epost}</strong>. {' '}
                     </Message>
-                  }
-                  <Button
-                    as="a"
-                    size="big"
-                    color="green"
-                    fluid
-                    onClick={this.acceptInvite}
-                  >
-                    Bekreft
-                  </Button>
-                </div>
+                    {
+                      invite.errors && invite.errors.length &&
+                      <Message error>
+                        {invite.errors.map(error => (
+                          <p key={error}>{error}</p>
+                        ))}
+                      </Message>
+                    }
+                    <Button
+                      as="a"
+                      size="big"
+                      color="green"
+                      fluid
+                      onClick={this.acceptInvite}
+                    >
+                      Bekreft
+                    </Button>
+                  </div>
               :
                 <div>
                   <Message error>

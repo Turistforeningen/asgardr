@@ -50,7 +50,10 @@ function inviteReducer(state = {}, action) {
       return {...state};
 
     case INVITE_ACCEPT_RESPONSE:
-      return {...state};
+      return {
+        ...state,
+        isAccepted: true,
+      };
 
     case INVITE_ACCEPT_ERROR:
       return {

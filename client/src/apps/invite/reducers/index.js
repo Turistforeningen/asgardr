@@ -26,6 +26,7 @@ function inviteReducer(state = {}, action) {
         isFetching: true,
         isFetched: false,
         code: action.code,
+        error: null,
       };
 
     case INVITE_FETCH_RESPONSE:
@@ -34,6 +35,7 @@ function inviteReducer(state = {}, action) {
         isFetching: false,
         isFetched: true,
         data: action.data,
+        error: null,
       };
 
     case INVITE_FETCH_ERROR:

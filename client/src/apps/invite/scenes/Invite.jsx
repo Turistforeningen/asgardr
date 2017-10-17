@@ -19,9 +19,9 @@ class Invite extends Component {
       return (
         <div>Henter invitasjon...</div>
       );
-    } else if (invite.isInvalid) {
+    } else if (invite.error) {
       return (
-        <div>Invitasjonskoden er ugyldig</div>
+        <Message error>{invite.error.message}</Message>
       );
     } else if (invite.isFetched && invite.data.brukt) {
       return (

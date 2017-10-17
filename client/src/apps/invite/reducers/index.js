@@ -1,8 +1,9 @@
 import {combineReducers} from 'redux';
 
 import {
-  REQUEST_INVITE,
-  RECEIVE_INVITE,
+  INVITE_FETCH_REQUEST,
+  INVITE_FETCH_RESPONSE,
+  INVITE_FETCH_ERROR,
   REQUEST_USER,
   RECEIVE_USER,
   INVITE_ACCEPT_REQUEST,
@@ -19,7 +20,7 @@ function appReducer(state = {}, action) {
 
 function inviteReducer(state = {}, action) {
   switch (action.type) {
-    case REQUEST_INVITE:
+    case INVITE_FETCH_REQUEST:
       return {
         ...state,
         isFetching: true,
@@ -27,12 +28,20 @@ function inviteReducer(state = {}, action) {
         code: action.code,
       };
 
-    case RECEIVE_INVITE:
+    case INVITE_FETCH_RESPONSE:
       return {
         ...state,
         isFetching: false,
         isFetched: true,
         data: action.data,
+      };
+
+    case INVITE_FETCH_ERROR:
+      return {
+        ...state,
+        isFetching: false,
+        isFetched: false,
+        error: action.error,
       };
 
     case INVITE_ACCEPT_REQUEST:

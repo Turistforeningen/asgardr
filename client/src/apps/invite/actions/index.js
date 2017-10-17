@@ -9,38 +9,51 @@ export function setMessage() {
   };
 }
 
-export const REQUEST_INVITE = 'REQUEST_INVITE';
-export function requestInvite(code) {
+export const INVITE_FETCH_REQUEST = 'INVITE_FETCH_REQUEST';
+export function inviteFetchRequest(code) {
   return {
-    type: REQUEST_INVITE,
+    type: INVITE_FETCH_REQUEST,
     code: code,
   };
 }
 
-export const RECEIVE_INVITE = 'RECEIVE_INVITE';
-export function receiveInvite(data) {
+export const INVITE_FETCH_RESPONSE = 'INVITE_FETCH_RESPONSE';
+export function inviteFetchResponse(data) {
   return {
-    type: RECEIVE_INVITE,
+    type: INVITE_FETCH_RESPONSE,
     data: data,
+  };
+}
+
+export const INVITE_FETCH_ERROR = 'INVITE_FETCH_ERROR';
+export function inviteFetchError(error) {
+  return {
+    type: INVITE_FETCH_ERROR,
+    error: error,
   };
 }
 
 export function fetchInvite(code) {
   return (dispatch, getState) => {
-    dispatch(requestInvite(code));
+    dispatch(inviteFetchRequest(code));
 
     return turbasen
       .find('grupper', {'privat.invitasjoner.kode': code, fields: 'privat'})
       .then((json) => {
         if (json.documents.length === 0) {
-          // TODO: Handle this
+          dispatch(inviteFetchError(
+            `Fant ingen invitasjon med denne koden. Kontroller at du har fulgt lenken du
+            har fått på epost`
+          ));
         } else if (json.documents.length > 1) {
-          // TODO: Handle this
+          dispatch(inviteFetchError(
+            'Fant flere invitasjoner med samme kode. Ta kontakt for å finne rett invitasjon.'
+          ));
         } else {
           const group = json.documents[0];
           const data = json.documents[0].privat.invitasjoner.find(i => i.kode === code);
 
-          dispatch(receiveInvite({...data, gruppe: group}));
+          dispatch(inviteFetchResponse({...data, gruppe: group}));
         }
       });
   };

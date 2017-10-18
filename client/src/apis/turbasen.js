@@ -31,7 +31,6 @@ function find(type, params) {
 
   return fetch(`${baseUri}/${type}?${queryString}`)
     .then((result) => {
-      a.b = c;
       if (result.status >= 400) {
         const message = json.message || 'API request failed';
         return Promise.reject(new RejectError(message));

@@ -33,7 +33,7 @@ class Confirm extends Component {
           <Segment stacked>
             <Header as="h2">Invitasjon til {invite.data.gruppe.navn}</Header>
             {
-              user && user.isAuthenticated ?
+              user && user.isAuthenticated ? // eslint-disable-line no-nested-ternary
                 invite && invite.isAccepted ?
                   <div>
                     <p>

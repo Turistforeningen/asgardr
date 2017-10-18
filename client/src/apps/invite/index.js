@@ -12,9 +12,12 @@ import App from './App.jsx';
 
 const appContainer = document.getElementById('app');
 const isProduction = appContainer.dataset.environment === 'production';
+const gitCommit = appContainer.dataset.gitcommit;
 
 if (isProduction) {
-  Raven.config('https://39837588ca2444d4813af4fb16931594@sentry.io/222695').install();
+  Raven.config('https://39837588ca2444d4813af4fb16931594@sentry.io/222695', {
+    release: gitCommit,
+  }).install();
 }
 
 store.dispatch(fetchUser());

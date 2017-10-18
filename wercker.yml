@@ -77,6 +77,7 @@ build-server:
         cwd: server/
         code: |
           echo $BUILD_TAG > .tag
+          echo $WERCKER_GIT_COMMIT > .gitcommit
     - internal/docker-push:
         disable-sync: true
         username: $DOCKER_REGISTRY_USERNAME

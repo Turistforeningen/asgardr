@@ -34,8 +34,8 @@ const nunjucksEnvironment = nunjucks.configure('templates', {
 nunjucksEnvironment.addGlobal('environment', process.env.NODE_ENV);
 nunjucksEnvironment.addGlobal('assetsUri', assetsUri);
 
-version.promise.then((tag) => {
-  nunjucksEnvironment.addGlobal('tag', tag);
+version.promise.then((gitcommit) => {
+  nunjucksEnvironment.addGlobal('gitcommit', gitcommit);
 }).catch(() => {});
 
 router.use('/invitasjon', (req, res, next) => {

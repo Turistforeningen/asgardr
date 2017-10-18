@@ -12,14 +12,21 @@ const baseOptions = {
 };
 
 function get(type, id) {
+  let statusCode;
+
   return fetch(`${baseUri}/${type}/${id}`)
     .then((result) => {
-      if (result.status >= 400) {
+      statusCode = result.status;
+
+      return result.json();
+    })
+    .then((json) => {
+      if (statusCode >= 400) {
         const message = json.message || 'API request failed';
         return Promise.reject(new RejectError(message));
       }
 
-      return result.json();
+      return json;
     })
     .catch((err) => { throw err; });
 }
@@ -29,16 +36,23 @@ function find(type, params) {
     .map(item => `${item}=${params[item]}`)
     .join('&');
 
+  let statusCode;
+
   return fetch(`${baseUri}/${type}?${queryString}`)
     .then((result) => {
-      if (result.status >= 400) {
+      statusCode = result.status;
+
+      return result.json();
+    })
+    .then((json) => {
+      if (statusCode >= 400) {
         const message = json.message || 'API request failed';
         return Promise.reject(new RejectError(message));
       }
 
-      return result.json();
+      return json;
     })
-    .catch((err) => { throw err });
+    .catch((err) => { throw err; });
 }
 
 function save(type, id, data) {
@@ -50,14 +64,21 @@ function save(type, id, data) {
     body: JSON.stringify(data),
   };
 
+  let statusCode;
+
   return fetch(url, options)
     .then((result) => {
-      if (result.status >= 400) {
+      statusCode = result.status;
+
+      return result.json();
+    })
+    .then((json) => {
+      if (statusCode >= 400) {
         const message = json.message || 'API request failed';
         return Promise.reject(new RejectError(message));
       }
 
-      return result.json();
+      return json;
     })
     .catch((err) => { throw err; });
 }

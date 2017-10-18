@@ -23,7 +23,7 @@ if (isProduction) {
   app.use('/assets', express.static(`/assets`));
 }
 
-const assetsUri = isProduction ? '/assets' : 'http://asgardr-client.app.dnt.local/assets';
+const assetsUri = isProduction ? '/assets' : 'http://asgardr-dev-server.app.dnt.local/assets';
 
 const nunjucksEnvironment = nunjucks.configure('templates', {
   autoescape: true,

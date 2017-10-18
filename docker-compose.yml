@@ -13,7 +13,7 @@ services:
       - NPM_CONFIG_LOGLEVEL=info
       - NPM_CONFIG_PROGRESS=false
       - NPM_CONFIG_SPIN=false
-      - VIRTUAL_HOST=asgardr-client.app.dnt.local
+      - VIRTUAL_HOST=asgardr-dev-server.app.dnt.local
       - VIRTUAL_PORT=3000
     logging:
       options:

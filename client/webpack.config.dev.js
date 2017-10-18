@@ -7,7 +7,7 @@ module.exports = {
     invite: [
       'babel-polyfill',
       'react-hot-loader/patch',
-      'webpack-dev-server/client?http://asgardr-dev-server.app.dnt.local',
+      `webpack-dev-server/client?http://${process.env.VIRTUAL_HOST}`,
       'webpack/hot/only-dev-server',
       './src/apps/invite/index',
     ],
@@ -15,7 +15,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'tmp'),
     filename: '[name].js',
-    publicPath: 'http://asgardr-dev-server.app.dnt.local/assets/',
+    publicPath: `http://${process.env.VIRTUAL_HOST}/assets/`,
   },
   module: {
     rules: [
@@ -58,8 +58,8 @@ module.exports = {
   devServer: {
     host: '0.0.0.0',
     port: 3000,
-    publicPath: 'http://asgardr-dev-server.app.dnt.local/assets/',
-    public: 'asgardr-dev-server.app.dnt.local',
+    publicPath: `http://${process.env.VIRTUAL_HOST}/assets/`,
+    public: process.env.VIRTUAL_HOST,
     hot: true,
     watchOptions: {
       aggregateTimeout: 300,

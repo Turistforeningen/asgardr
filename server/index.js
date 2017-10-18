@@ -7,6 +7,7 @@ const nunjucks = require('nunjucks');
 const {middleware: requireAuth, apiMiddleware: requireApiAuth} = require('./lib/auth');
 const redis = require('./lib/redis');
 const session = require('./lib/session');
+const version = require('./lib/version');
 
 const app = express();
 const router = new express.Router();
@@ -32,6 +33,10 @@ const nunjucksEnvironment = nunjucks.configure('templates', {
 
 nunjucksEnvironment.addGlobal('environment', process.env.NODE_ENV);
 nunjucksEnvironment.addGlobal('assetsUri', assetsUri);
+
+version.promise.then((tag) => {
+  nunjucksEnvironment.addGlobal('tag', tag);
+}).catch(() => {});
 
 router.use('/invitasjon', (req, res, next) => {
   res.render('invite.html', {app: 'invite', code: req.query.kode});

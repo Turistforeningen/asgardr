@@ -76,7 +76,13 @@ build-server:
         name: write tag file
         cwd: server/
         code: |
+          echo "writing $BUILD_TAG to .tag"
           echo $BUILD_TAG > .tag
+    - script:
+        name: write gitcommit file
+        cwd: server/
+        code: |
+          echo "writing $WERCKER_GIT_COMMIT to .gitcommit"
           echo $WERCKER_GIT_COMMIT > .gitcommit
     - internal/docker-push:
         disable-sync: true

@@ -1,3 +1,5 @@
+import fetch from 'isomorphic-fetch';
+
 import RejectError from '../lib/reject-error.js';
 
 const baseUri = '/api/turbasen';

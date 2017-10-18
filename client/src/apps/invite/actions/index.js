@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-fetch';
 
 import turbasen from '../../../apis/turbasen.js';
+import RejectError from '../../../lib/reject-error.js';
 
 export const SET_MESSAGE = 'SET_MESSAGE';
 export function setMessage() {
@@ -97,11 +98,11 @@ export function acceptInvite(code, group, user) {
         const invite = invites.find(invitasjon => invitasjon.kode === code);
 
         if (typeof invite === 'undefined') {
-          return Promise.reject(new Error('Koden er ikke gyldig for denne gruppen'));
+          return Promise.reject(new RejectError('Koden er ikke gyldig for denne gruppen'));
         } else if (invite.brukt === true) {
-          return Promise.reject(new Error('Koden har allerede blitt brukt'));
+          return Promise.reject(new RejectError('Koden har allerede blitt brukt'));
         } else if (users.find(u => u.id === user.sherpa_id)) {
-          return Promise.reject(new Error('Brukeren har allerede tilgang til denne gruppen'));
+          return Promise.reject(new RejectError('Brukeren har allerede tilgang til denne gruppen'));
         }
 
         json.privat.invitasjoner = invites.map((invitasjon) => {
@@ -135,7 +136,11 @@ export function acceptInvite(code, group, user) {
         dispatch(inviteAcceptResponse(json));
       })
       .catch((err) => {
-        dispatch(inviteAcceptError(err));
+        if (err instanceof RejectError) {
+          dispatch(inviteAcceptError(err));
+        } else {
+          Raven.captureException(err);
+        }
       });
   };
 }

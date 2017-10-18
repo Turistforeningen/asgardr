@@ -43,19 +43,28 @@ export function fetchInvite(code) {
       .find('grupper', {'privat.invitasjoner.kode': code, fields: 'privat'})
       .then((json) => {
         if (json.documents.length === 0) {
-          dispatch(inviteFetchError(new Error(
-            `Fant ingen invitasjon med denne koden. Kontroller at du har fulgt lenken du har fått
-            på epost.`
-          )));
+          return RejectError(
+            `Fant ingen invitasjon med denne koden. Kontroller at du har
+            fulgt lenken du har fått på epost.`
+          );
         } else if (json.documents.length > 1) {
-          dispatch(inviteFetchError(new Error(
-            `Fant flere invitasjoner med samme kode. Ta kontakt for å finne rett invitasjon.`
-          )));
-        } else {
-          const group = json.documents[0];
-          const data = json.documents[0].privat.invitasjoner.find(i => i.kode === code);
+          return RejectError(
+            'Fant flere invitasjoner med samme kode. Ta kontakt for å finne rett invitasjon.'
+          );
+        }
 
-          dispatch(inviteFetchResponse({...data, gruppe: group}));
+        const group = json.documents[0];
+        const data = json.documents[0].privat.invitasjoner.find(i => i.kode === code);
+
+        return dispatch(inviteFetchResponse({...data, gruppe: group}));
+      })
+      .catch((err) => {
+        if (err instanceof RejectError) {
+          dispatch(inviteFetchError(err));
+        } else {
+          console.error(err); // eslint-disable-line no-console
+
+          Raven.captureException(err);
         }
       });
   };

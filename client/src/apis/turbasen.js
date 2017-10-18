@@ -1,3 +1,5 @@
+import RejectError from '../lib/reject-error.js';
+
 const baseUri = '/api/turbasen';
 const baseOptions = {
   credentials: 'same-origin',
@@ -12,12 +14,12 @@ function get(type, id) {
     .then((result) => {
       if (result.status >= 400) {
         const message = json.message || 'API request failed';
-        return Promise.reject(message);
+        return Promise.reject(new RejectError(message));
       }
 
       return result.json();
     })
-    .catch((err) => { throw new Error(err); });
+    .catch((err) => { throw err; });
 }
 
 function find(type, params) {
@@ -27,14 +29,15 @@ function find(type, params) {
 
   return fetch(`${baseUri}/${type}?${queryString}`)
     .then((result) => {
+      a.b = c;
       if (result.status >= 400) {
         const message = json.message || 'API request failed';
-        return Promise.reject(message);
+        return Promise.reject(new RejectError(message));
       }
 
       return result.json();
     })
-    .catch((err) => { throw new Error(err); });
+    .catch((err) => { throw err });
 }
 
 function save(type, id, data) {
@@ -50,16 +53,16 @@ function save(type, id, data) {
     .then((result) => {
       if (result.status >= 400) {
         const message = json.message || 'API request failed';
-        return Promise.reject(message);
+        return Promise.reject(new RejectError(message));
       }
 
       return result.json();
     })
-    .catch((err) => { throw new Error(err); });
+    .catch((err) => { throw err; });
 }
 
 function destroy() {
-  return Promise.reject(new Error('Not implemented'));
+  return Promise.reject(new RejectError('Not implemented'));
 }
 
 const turbasen = {

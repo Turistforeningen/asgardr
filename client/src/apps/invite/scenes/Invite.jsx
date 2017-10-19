@@ -23,10 +23,6 @@ class Invite extends Component {
       return (
         <Message error>{invite.error.message}</Message>
       );
-    } else if (invite.isFetched && invite.data.brukt) {
-      return (
-        <div>Invitasjonskoden er allerede brukt.</div>
-      );
     } else if (invite.isFetched) {
       return (
         <Grid textAlign="center" style={{height: '100%'}} verticalAlign="middle">

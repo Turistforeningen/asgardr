@@ -56,6 +56,10 @@ export function fetchInvite(code) {
         const group = json.documents[0];
         const data = json.documents[0].privat.invitasjoner.find(i => i.kode === code);
 
+        if (data.brukt) {
+          return Promise.reject(new RejectError('Invitasjonskoden er allerede brukt.'));
+        }
+
         return dispatch(inviteFetchResponse({...data, gruppe: group}));
       })
       .catch((err) => {

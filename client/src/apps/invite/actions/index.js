@@ -43,14 +43,14 @@ export function fetchInvite(code) {
       .find('grupper', {'privat.invitasjoner.kode': code, fields: 'privat'})
       .then((json) => {
         if (json.documents.length === 0) {
-          return RejectError(
+          return Promise.reject(new RejectError(
             `Fant ingen invitasjon med denne koden. Kontroller at du har
             fulgt lenken du har fått på epost.`
-          );
+          ));
         } else if (json.documents.length > 1) {
-          return RejectError(
+          return Promise.reject(new RejectError(
             'Fant flere invitasjoner med samme kode. Ta kontakt for å finne rett invitasjon.'
-          );
+          ));
         }
 
         const group = json.documents[0];

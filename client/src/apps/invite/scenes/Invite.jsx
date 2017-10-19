@@ -32,18 +32,18 @@ class Invite extends Component {
         <Grid textAlign="center" style={{height: '100%'}} verticalAlign="middle">
           <Grid.Column style={{maxWidth: 450}}>
             <Segment stacked>
-              <Header as="h2">Invitasjon til {invite.data.gruppe.navn}</Header>
+              <Header as="h2">Bli med i {invite.data.gruppe.navn} på UT.no</Header>
               <p>
-                Du er invitert til å bli med i gruppen {invite.data.gruppe.navn}.
-              </p>
-              <p>
-                Når du har{' '}
-                koblet brukeren din til gruppen får du tilgang til gruppens innhold i{' '}
-                Nasjonal Turbase.
+                Du er invitert til å bli å bli en del av gruppa {invite.data.gruppe.navn} {' '}
+                på UT.no.
               </p>
               {
                 user && user.isAuthenticated ?
                   <div>
+                    <p>
+                      For å få tilgang til gruppas innhold på UT.no må din DNT-bruker legges{' '}
+                      til i gruppa.
+                    </p>
                     <Message info>
                       Du er logget inn som {' '}
                       <strong>{user.data.fornavn} {user.data.etternavn}</strong>,
@@ -63,8 +63,9 @@ class Invite extends Component {
                 :
                   <div>
                     <p>
-                      For å bli med i gruppen må du logge inn med din DNT-bruker. Hvis du {' '}
-                      ikke har en DNT-bruker kan du opprette en.
+                      For å få tilgang til gruppas innhold på UT.no må du logge inn med {' '}
+                      din DNT-bruker. Hvis du ikke har en DNT-bruker kan du enkelt opprette en {' '}
+                      gratis. Du trenger ikke være medlem av DNT for å registrere en bruker.
                     </p>
                     <Button
                       as="a"
@@ -73,7 +74,7 @@ class Invite extends Component {
                       fluid
                       href={`/logg-inn?next=/invitasjon/bekreft?kode=${code}`}
                     >
-                      Gå videre
+                      Gå videre for å logge inn eller registrere bruker
                     </Button>
                   </div>
               }

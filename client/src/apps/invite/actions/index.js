@@ -42,7 +42,10 @@ export function fetchInvite(code) {
     return turbasen
       .find('grupper', {'privat.invitasjoner.kode': code, fields: 'privat'})
       .then((json) => {
-        if (json.documents.length === 0) {
+        // NOTE: Would check code before request, if error was caught
+        if (typeof code === 'undefined' || code.length === 0) {
+          return Promise.reject(new RejectError('Kode mangler.'));
+        } else if (json.documents.length === 0) {
           return Promise.reject(new RejectError(
             `Fant ingen invitasjon med denne koden. Kontroller at du har
             fulgt lenken du har fått på epost.`
@@ -53,14 +56,22 @@ export function fetchInvite(code) {
           ));
         }
 
+        // Find invite
         const group = json.documents[0];
-        const data = json.documents[0].privat.invitasjoner.find(i => i.kode === code);
+        const invite = json.documents[0].privat.invitasjoner.find(i => i.kode === code);
 
-        if (data.brukt) {
-          return Promise.reject(new RejectError('Invitasjonskoden er allerede brukt.'));
+        // Check if invite is used
+        if (invite.brukt) {
+          return Promise.reject(new RejectError(
+            `Invitasjonskoden er allerede brukt. Den er koblet til
+            DNT-bruker med epost-adresse ${invite.brukt_av.epost}. Hvis dette er deg
+            kan du logge inn for å få tilgang til innholdet ditt. Ellers må du få en ny
+            invitasjonskode, for å bli medlem i gruppa.`
+          ));
         }
 
-        return dispatch(inviteFetchResponse({...data, gruppe: group}));
+        // Invite is found, unused, unique – receive it
+        return dispatch(inviteFetchResponse({...invite, gruppe: group}));
       })
       .catch((err) => {
         if (err instanceof RejectError) {

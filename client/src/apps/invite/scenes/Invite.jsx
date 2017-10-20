@@ -84,7 +84,7 @@ class Invite extends Component {
                             fluid
                             href={`/logg-inn?next=/invitasjon/bekreft?kode=${code}`}
                           >
-                            Gå videre for å logge inn eller registrere bruker
+                            Gå videre
                           </Button>
                         </div>
                       );

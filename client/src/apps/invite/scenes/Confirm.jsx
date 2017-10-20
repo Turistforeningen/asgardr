@@ -30,79 +30,76 @@ class Confirm extends Component {
     return (
       <Grid textAlign="center" style={{height: '100%'}} verticalAlign="middle">
         <Grid.Column style={{maxWidth: 450}}>
-          <Segment stacked>
-            <Header as="h2">Invitasjon til {invite.data.gruppe.navn}</Header>
-            {
-              user && user.isAuthenticated ? // eslint-disable-line no-nested-ternary
-                invite && invite.isAccepted ?
-                  <div>
-                    <p>
-                      Gratulerer! Du er nå medlem av gruppen {invite.data.gruppe.navn} og har{' '}
-                      tilgang til gruppen sitt innhold i Nasjonal Turbase.
-                    </p>
-                    <p>
-                      Gå til f.eks. <a href="https://tur.app.dnt.no">turforslag</a> eller{' '}
-                      <a href="https://hytte.app.dnt.no">hytter</a>.
-                    </p>
-                  </div>
+          {
+            user && user.isAuthenticated ? // eslint-disable-line no-nested-ternary
+              invite && invite.isAccepted ?
+                <Segment padded stacked>
+                  <Header as="h2">Bekreft brukeropplysninger</Header>
+                  <p>
+                    Gratulerer! Du er nå medlem av {invite.data.gruppe.navn} og har{' '}
+                    tilgang til å redigere gruppa sitt innhold på UT.no.
+                  </p>
+                  <p>
+                    Gå til f.eks. <a href="https://tur.app.dnt.no">turforslag</a> eller{' '}
+                    <a href="https://hytte.app.dnt.no">hytter</a>.
+                  </p>
+                </Segment>
                 :
-                  <div>
-                    <p>
-                      Når du har{' '}
-                      koblet brukeren din til gruppen får du tilgang til gruppens innhold i{' '}
-                      Nasjonal Turbase.
-                    </p>
-                    <p>
-                      Kontroller nedenfor at du er logget inn som riktig bruker, og trykk bekreft.
-                    </p>
-                    <Message success>
-                      Du er logget inn som {' '}
-                      <strong>{user.data.fornavn} {user.data.etternavn}</strong>,
-                      med epost <strong>{user.data.epost}</strong>. {' '}
-                    </Message>
-                    {
-                      invite.errors && invite.errors.length &&
-                      <Message error>
-                        {invite.errors.map(error => (
-                          <p key={error}>{error}</p>
-                        ))}
-                      </Message>
-                    }
-                    <Button
-                      as="a"
-                      size="big"
-                      color="green"
-                      fluid
-                      onClick={this.acceptInvite}
-                    >
-                      Bekreft
-                    </Button>
-                  </div>
-              :
-                <div>
-                  <Message error>
-                    Du er ikke logget inn. For å bli med i gruppen må du være innlogget med en{' '}
-                    DNT-bruker.
+                <Segment padded stacked>
+                  <Header as="h2">Bekreft brukeropplysninger</Header>
+                  <p>
+                    Kontroller nedenfor at du er logget inn som riktig bruker, og trykk{' '}
+                    bekreft for å koble din DNT-bruker til gruppa {invite.data.gruppe.navn}{' '}
+                    på UT.no.
+                  </p>
+                  <Message success>
+                    Du er logget inn som {' '}
+                    <strong>{user.data.fornavn} {user.data.etternavn}</strong>,
+                    med epost <strong>{user.data.epost}</strong>. {' '}
                   </Message>
+                  {
+                    invite.errors && invite.errors.length &&
+                    <Message error>
+                      {invite.errors.map(error => (
+                        <p key={error}>{error}</p>
+                      ))}
+                    </Message>
+                  }
                   <Button
                     as="a"
                     size="big"
-                    color="blue"
+                    color="green"
                     fluid
-                    href={`/logg-inn?next=/invitasjon/bekreft?kode=${code}`}
+                    onClick={this.acceptInvite}
                   >
-                    Logg inn
+                    Bekreft
                   </Button>
-                </div>
+                </Segment>
+              :
+              <Segment padded stacked>
+                <Header as="h2">Ikke logget inn</Header>
+                <Message error>
+                  Du er ikke logget inn. For å bli med i gruppen må du være innlogget med en{' '}
+                  DNT-bruker.
+                </Message>
+                <Button
+                  as="a"
+                  size="big"
+                  color="blue"
+                  fluid
+                  href={`/logg-inn?next=/invitasjon/bekreft?kode=${code}`}
+                >
+                  Logg inn
+                </Button>
+              </Segment>
             }
-          </Segment>
           <Segment basic>
             {
               user && user.isAuthenticated &&
               <p>
                 Ikke riktig bruker? Da må du først{' '}
                 <a href="https://www.dnt.no/minside/logg-ut">logge ut</a>,{' '}
-                for så å følge lenken i epost-invitasjonen på nytt.
+                for deretter å følge lenken i epost-invitasjonen på nytt.
               </p>
             }
           </Segment>

@@ -16,7 +16,7 @@ class Invite extends Component {
     return (
       <Grid textAlign="center" style={{height: '100%'}} verticalAlign="middle">
         <Grid.Column style={{maxWidth: 450}}>
-          <Segment stacked style={{minHeight: '120px'}}>
+          <Segment padded stacked style={{minHeight: '120px'}}>
             {(() => {
               if (isFetching) {
                 return (

@@ -34,7 +34,7 @@ class Confirm extends Component {
             user && user.isAuthenticated ? // eslint-disable-line no-nested-ternary
               invite && invite.isAccepted ?
                 <Segment padded stacked>
-                  <Header as="h2">Bekreft brukeropplysninger</Header>
+                  <Header as="h2">Du er med!</Header>
                   <p>
                     Gratulerer! Du er nå medlem av {invite.data.gruppe.navn} og har{' '}
                     tilgang til å redigere gruppa sitt innhold på UT.no.

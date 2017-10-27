@@ -198,7 +198,6 @@ export function receiveUser(user) {
   };
 }
 
-
 export function fetchUser() {
   return (dispatch, getState) => {
     let statusCode;
@@ -227,4 +226,3 @@ export function fetchUser() {
       .catch((err) => { throw new Error(err); });
   };
 }
-

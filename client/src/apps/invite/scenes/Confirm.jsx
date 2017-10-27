@@ -46,17 +46,39 @@ class Confirm extends Component {
                 </Segment>
                 :
                 <Segment padded stacked>
-                  <Header as="h2">Bekreft brukeropplysninger</Header>
-                  <p>
-                    Kontroller nedenfor at du er logget inn som riktig bruker, og trykk{' '}
-                    bekreft for å koble din DNT-bruker til gruppa {invite.data.gruppe.navn}{' '}
-                    på UT.no.
-                  </p>
-                  <Message success>
-                    Du er logget inn som {' '}
-                    <strong>{user.data.fornavn} {user.data.etternavn}</strong>,
-                    med epost <strong>{user.data.epost}</strong>. {' '}
-                  </Message>
+                  {
+                    invite.data.brukt ?
+                    <Message error>
+                      Invitasjonskoden er allerede brukt. Den er koblet til{' '}
+                      DNT-bruker med epost-adresse {invite.data.brukt_av.epost}.{' '}
+                      Hvis dette er deg kan du logge inn for å få{' '}
+                      tilgang til innholdet ditt. Ellers må du få en{' '}
+                      ny invitasjonskode, for å bli medlem i gruppa.
+                    </Message>
+                    :
+                    <div>
+                      <Header as="h2">Bekreft brukeropplysninger</Header>
+                      <p>
+                        Kontroller nedenfor at du er logget inn som riktig bruker, og trykk{' '}
+                        bekreft for å koble din DNT-bruker til gruppa {invite.data.gruppe.navn}{' '}
+                        på UT.no.
+                      </p>
+                      <Message success>
+                        Du er logget inn som {' '}
+                        <strong>{user.data.fornavn} {user.data.etternavn}</strong>,
+                        med epost <strong>{user.data.epost}</strong>. {' '}
+                      </Message>
+                      <Button
+                        as="a"
+                        size="big"
+                        color="green"
+                        fluid
+                        onClick={this.acceptInvite}
+                      >
+                        Bekreft
+                      </Button>
+                    </div>
+                  }
                   {
                     invite.errors && invite.errors.length &&
                     <Message error>
@@ -65,15 +87,6 @@ class Confirm extends Component {
                       ))}
                     </Message>
                   }
-                  <Button
-                    as="a"
-                    size="big"
-                    color="green"
-                    fluid
-                    onClick={this.acceptInvite}
-                  >
-                    Bekreft
-                  </Button>
                 </Segment>
               :
               <Segment padded stacked>

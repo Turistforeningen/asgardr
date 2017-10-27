@@ -61,17 +61,7 @@ export function fetchInvite(code) {
         const group = json.documents[0];
         const invite = json.documents[0].privat.invitasjoner.find(i => i.kode === code);
 
-        // Check if invite is used
-        if (invite.brukt) {
-          return Promise.reject(new RejectError(
-            `Invitasjonskoden er allerede brukt. Den er koblet til
-            DNT-bruker med epost-adresse ${invite.brukt_av.epost}. Hvis dette er deg
-            kan du logge inn for å få tilgang til innholdet ditt. Ellers må du få en ny
-            invitasjonskode, for å bli medlem i gruppa.`
-          ));
-        }
-
-        // Invite is found, unused, unique – receive it
+        // Invite is found, unique – receive it
         return dispatch(inviteFetchResponse({...invite, gruppe: group}));
       })
       .catch((err) => {

@@ -2,6 +2,7 @@ import fetch from 'isomorphic-fetch';
 import Raven from 'raven-js';
 
 import turbasen from '../../../apis/turbasen.js';
+import sendgrid from '../../../apis/sendgrid.js';
 import RejectError from '../../../lib/reject-error.js';
 
 export const SET_MESSAGE = 'SET_MESSAGE';
@@ -166,6 +167,27 @@ export function acceptInvite(code, group, user) {
         } else {
           Raven.captureException(err);
         }
+      })
+      .then(() => {
+        const email = {
+          to: user.epost,
+          subject: `Velkommen til gruppa ${group.navn} på UT.no`,
+          html: `<h2>Hei ${user.fornavn} ${user.etternavn},</h2>
+            <p>Velkommen som medlem i gruppa ${group.navn}!</p>
+            <p>Du har nå tilgang til redigering av gruppas innhold på UT.no.</p>
+            <p><a href="https://asgardr.app.dnt.no/">Klikk her for å komme i gang</a>!</p>
+            <p>
+              Vennlig hilsen<br>
+              <a href="https://www.ut.no">UT.no</a> /
+              <a href="https://www.dnt.no">Den Norske Turistforening</a>
+            </p>
+          `,
+        };
+
+        return sendgrid.send(email);
+      })
+      .catch((err) => {
+        Raven.captureException(err);
       });
   };
 }

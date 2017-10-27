@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@sendgrid/mail": "^6.1.4",
     "@starefossen/http-error": "^1.0.1",
     "babel-eslint": "^8.0.0",
     "body-parser": "^1.18.1",

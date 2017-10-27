@@ -8,6 +8,7 @@ const variables = [
   {name: 'OAUTH_CLIENT_ID', env: ['development', 'production']},
   {name: 'OAUTH_CLIENT_SECRET', env: ['development', 'production']},
   {name: 'SENTRY_DSN', env: ['production']},
+  {name: 'SENDGRID_API_KEY', env: ['development', 'production']},
 ];
 
 const environment = process.env.NODE_ENV;

@@ -67,7 +67,7 @@ router.use('/api/turbasen', require('./lib/turbasen-api'));
 router.use('/api/sendgrid', require('./lib/sendgrid-api'));
 
 router.use('/', (req, res, next) => {
-  res.render('index.html');
+  res.render('portal.html', {app: 'portal'});
 });
 
 app.use(process.env.VIRTUAL_PATH, router);

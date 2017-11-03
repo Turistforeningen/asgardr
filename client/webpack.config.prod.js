@@ -8,6 +8,10 @@ module.exports = {
       'babel-polyfill',
       './src/apps/invite/index',
     ],
+    portal: [
+      'babel-polyfill',
+      './src/apps/portal/index',
+    ],
   },
   output: {
     path: path.join(__dirname, 'build'),

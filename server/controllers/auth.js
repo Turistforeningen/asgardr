@@ -71,7 +71,12 @@ router.get('/verifiser', (req, res, next) => { // eslint-disable-line consistent
     })
     .then(result => result.json())
     .then((json) => {
-      user = Object.assign({}, json, {is_sudo: false, is_admin: false});
+      user = Object.assign({}, json, {
+        is_sudo: false,
+        is_admin: false,
+        is_external: false,
+        grupper: [],
+      });
 
       if (json.foreningstilganger && json.foreningstilganger.length > 0) {
         user.is_admin = true;
@@ -87,7 +92,21 @@ router.get('/verifiser', (req, res, next) => { // eslint-disable-line consistent
       return redis.hmset(`${user.sherpa_id}`, 'user', JSON.stringify(user));
     })
     .then(result => redis.hmset(`${user.sherpa_id}`, 'tokens', JSON.stringify(tokens)))
-    .then((result) => {
+    .then(() => {
+      const appUrl = `${process.env.NODE_ENV === 'production' ? 'https' : 'http'}://${process.env.VIRTUAL_HOST}`;
+
+      return fetch(`${appUrl}/api/turbasen/grupper?privat.brukere.id=${user.sherpa_id}`);
+    })
+    .then(result => result.json())
+    .then((json) => {
+      if (json && json.documents && json.documents.length) {
+        user.is_external = true;
+        user.grupper = [...json.documents];
+      }
+
+      return redis.hmset(`${user.sherpa_id}`, 'user', JSON.stringify(user));
+    })
+    .then(() => {
       if (req.query.next) {
         res.redirect(req.query.next);
       } else {

@@ -8,9 +8,16 @@ const Header = ({user}) => (
     <Menu attached="top" fixed="top">Hello</Menu>
     <div className="ui fixed top inverted menu">
       <div className="ui container">
-        <a href="https://www.dnt.no/sherpa" className="header item logo">
-          <img src={logo} />
-        </a>
+        {
+          user && user.isAuthenticated && user.data.is_admin ?
+            <a href="https://www.dnt.no/sherpa" className="header item logo">
+              <img src={logo} />
+            </a>
+          :
+            <a href="/" className="header item logo">
+              <img src={logo} />
+            </a>
+        }
         <Menu.Menu position="right">
           {
             user && user.isAuthenticated ?

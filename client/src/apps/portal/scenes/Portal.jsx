@@ -33,16 +33,17 @@ class Portal extends Component {
                           </a>
                       </Segment>
                     </Grid.Column>
-                    <Divider vertical>Eller</Divider>
-                    <Grid.Column>
-                      <Segment basic textAlign="center">
-                          <a href="https://hytte.app.dnt.no/auth/logout?next=/auth/login/dnt">
-                            <Icon name="bed" size="huge" color="brown" />
-                            <br /><br />
-                            <Button color="brown" content="Hytter" icon='right arrow' labelPosition='right' />
-                          </a>
-                      </Segment>
-                    </Grid.Column>
+                    {(user.data.is_admin || user.data.is_external) &&
+                      <Grid.Column>
+                        <Segment basic textAlign="center">
+                            <a href="https://hytte.app.dnt.no/auth/logout?next=/auth/login/dnt">
+                              <Icon name="bed" size="huge" color="brown" />
+                              <br /><br />
+                              <Button color="brown" content="Hytter" icon='right arrow' labelPosition='right' />
+                            </a>
+                        </Segment>
+                      </Grid.Column>
+                    }
                   </Grid>
                 </Segment>
               );

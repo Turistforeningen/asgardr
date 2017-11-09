@@ -11,6 +11,7 @@ class Portal extends Component {
 
   render() {
     const {user} = this.props;
+    const qs = queryString.parse(this.props.location.search);
 
     return (
       <div>
@@ -59,6 +60,13 @@ class Portal extends Component {
                     Hvis du ikke har en DNT-bruker kan du{' '}
                     <a href="https://www.dnt.no/minside/logg-inn/?next=/minside/#registrering">registrere deg</a>.
                   </p>
+                  {
+                    qs && qs.error && qs.error === 'auth' &&
+                    <Message error>
+                      Det skjedde en feil ved innlogging. Prøv igjen, og {' '}
+                      ta kontakt dersom feilen vedvarer.
+                    </Message>
+                  }
                   <Button
                     as="a"
                     href="/logg-inn"

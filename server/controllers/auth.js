@@ -14,16 +14,6 @@ let redirectUri;
 const OAUTH_DOMAIN = 'https://www.dnt.no';
 
 router.get('/', (req, res, next) => {
-  if (req.query.error) {
-    return res.render('index.html', {
-      error: {
-        title: 'Feil ved innlogging',
-        message: 'En uventet feil oppstod ved innlogging. Du kan forsøke igjen, og ta kontakt med oss hvis problemet vedvarer.',
-        code: req.query.error_description,
-      },
-    });
-  }
-
   redirectUri = `${req.protocol}://${req.hostname}${req.baseUrl}/verifiser?next=${req.query.next || '/'}`;
 
   return res.redirect(`${OAUTH_DOMAIN}/o/authorize/?client_id=${secrets.OAUTH_CLIENT_ID}&response_type=code&redirect_uri=${redirectUri}`);
@@ -114,13 +104,8 @@ router.get('/verifiser', (req, res, next) => { // eslint-disable-line consistent
       }
     })
     .catch((err) => {
-      req.session.message = {
-        title: 'Feil ved innlogging',
-        message: 'Det skjedde en feil ved innlogging. Prøv igjen, og ta kontakt dersom feilen vedvarer.',
-      };
-
       // TODO: Set some params to make sure login route is not redirecting to OAuth
-      res.redirect('/logg-inn');
+      res.redirect('/?error=auth&code=500');
     });
 
   verify.catch((err) => {

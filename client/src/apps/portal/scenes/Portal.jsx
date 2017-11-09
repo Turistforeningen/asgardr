@@ -69,7 +69,7 @@ class Portal extends Component {
                   }
                   <Button
                     as="a"
-                    href="/logg-inn"
+                    href="/logg-inn/dnt"
                     icon="user"
                     labelPosition="left"
                     content="Logg inn"

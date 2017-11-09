@@ -105,7 +105,6 @@ router.get('/verifiser', (req, res, next) => { // eslint-disable-line consistent
       }
     })
     .catch((err) => {
-      // TODO: Set some params to make sure login route is not redirecting to OAuth
       raven.captureException(err);
       res.redirect('/?error=auth&code=500');
     });

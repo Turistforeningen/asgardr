@@ -5,6 +5,7 @@ const express = require('express');
 const nunjucks = require('nunjucks');
 
 const {middleware: requireAuth, apiMiddleware: requireApiAuth} = require('./lib/auth');
+const raven = require('./lib/raven');
 const redis = require('./lib/redis');
 const session = require('./lib/session');
 const version = require('./lib/version');
@@ -14,6 +15,7 @@ const router = new express.Router();
 
 app.set('x-powered-by', false);
 
+app.use(raven.requestHandler());
 app.use(bodyParser.json());
 app.use(session);
 
@@ -71,6 +73,8 @@ router.use('/', (req, res, next) => {
 });
 
 app.use(process.env.VIRTUAL_PATH, router);
+
+app.use(raven.errorHandler());
 
 // Start the express app
 if (!module.parent) {

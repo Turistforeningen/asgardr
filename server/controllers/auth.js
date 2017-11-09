@@ -15,7 +15,7 @@ let redirectUri;
 const OAUTH_DOMAIN = 'https://www.dnt.no';
 
 router.get('/dnt', (req, res, next) => {
-  redirectUri = `${process.env.APP_URL}/verifiser?next=${req.query.next || '/'}`;
+  redirectUri = `${process.env.APP_URL}/logg-inn/verifiser?next=${req.query.next || '/'}`;
 
   return res.redirect(`${OAUTH_DOMAIN}/o/authorize/?client_id=${secrets.OAUTH_CLIENT_ID}&response_type=code&redirect_uri=${redirectUri}`);
 });

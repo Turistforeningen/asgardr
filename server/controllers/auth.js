@@ -6,6 +6,7 @@ const redis = require('../lib/redis');
 const {Router} = require('express');
 
 const secrets = require('../lib/secrets');
+const raven = require('../lib/raven');
 
 const router = new Router();
 
@@ -105,12 +106,12 @@ router.get('/verifiser', (req, res, next) => { // eslint-disable-line consistent
     })
     .catch((err) => {
       // TODO: Set some params to make sure login route is not redirecting to OAuth
-      console.error(err);
+      raven.captureException(err);
       res.redirect('/?error=auth&code=500');
     });
 
   verify.catch((err) => {
-    console.error(err); // eslint-disable-line no-console
+    raven.captureException(err);
   });
 });
 

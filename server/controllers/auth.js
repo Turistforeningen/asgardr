@@ -11,11 +11,10 @@ const router = new Router();
 
 let redirectUri;
 
-const FORCE_SSL = process.env.FORCE_SSL && process.env.FORCE_SSL === 'true';
 const OAUTH_DOMAIN = 'https://www.dnt.no';
 
 router.get('/dnt', (req, res, next) => {
-  redirectUri = `http${FORCE_SSL ? 's': ''}://${req.hostname}${req.baseUrl}/verifiser?next=${req.query.next || '/'}`; //eslint-disable-line max-len
+  redirectUri = `${process.env.APP_URL}/verifiser?next=${req.query.next || '/'}`;
 
   return res.redirect(`${OAUTH_DOMAIN}/o/authorize/?client_id=${secrets.OAUTH_CLIENT_ID}&response_type=code&redirect_uri=${redirectUri}`);
 });
@@ -84,7 +83,7 @@ router.get('/verifiser', (req, res, next) => { // eslint-disable-line consistent
     })
     .then(result => redis.hmset(`${user.sherpa_id}`, 'tokens', JSON.stringify(tokens)))
     .then(() => {
-      const appUrl = `${process.env.NODE_ENV === 'production' ? 'https' : 'http'}://${process.env.VIRTUAL_HOST}`;
+      const appUrl = `${process.env.APP_URL}`;
 
       return fetch(`${appUrl}/api/turbasen/grupper?privat.brukere.id=${user.sherpa_id}`);
     })

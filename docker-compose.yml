@@ -43,6 +43,7 @@ services:
       options:
         max-size: '500k'
     environment:
+      - 'APP_URL=http://asgardr.app.dnt.local'
       - NODE_ENV=development
       - 'NTB_API_URL=https://dev.nasjonalturbase.no'
       - NPM_CONFIG_LOGLEVEL=info

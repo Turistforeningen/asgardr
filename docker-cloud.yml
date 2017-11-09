@@ -11,6 +11,7 @@ asgardr-node:
   image: 'turistforeningen/asgardr:node'
   autoredeploy: true
   environment:
+    - 'APP_URL=https://asgardr.app.dnt.no'
     - FORCE_SSL=true
     - HSTS_MAX_AGE=31536000
     - NODE_ENV=production

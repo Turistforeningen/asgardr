@@ -14,7 +14,7 @@ class App extends Component {
     const {user} = this.props;
 
     return (
-      <Switch basename="/invitasjon">
+      <Switch basename="/">
         <div>
           <Header user={user} />
             <Container>

@@ -100,7 +100,7 @@ class Confirm extends Component {
                   size="big"
                   color="blue"
                   fluid
-                  href={`/logg-inn?next=/invitasjon/bekreft?kode=${code}`}
+                  href={`/logg-inn/dnt?next=/invitasjon/bekreft?kode=${code}`}
                 >
                   Logg inn
                 </Button>

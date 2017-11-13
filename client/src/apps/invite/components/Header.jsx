@@ -18,7 +18,7 @@ const Header = ({user}) => (
                 Logget inn som {`${user.data.fornavn} ${user.data.etternavn}`} – Logg ut
               </Menu.Item>
             :
-              <Menu.Item link href="/logg-inn">
+              <Menu.Item link href="/logg-inn/dnt">
                 Logg inn
               </Menu.Item>
           }

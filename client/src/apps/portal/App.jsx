@@ -7,7 +7,7 @@ import Portal from './scenes/Portal.jsx';
 
 import Header from '../../components/Header.jsx';
 
-require('./styles/app.scss');
+require('../../styles/app.scss');
 
 class App extends Component {
   render() {

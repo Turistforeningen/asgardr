@@ -1,14 +1,11 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import queryString from 'query-string';
-import {Button, Dimmer, Divider, Grid, Header, Icon, Loader, Message, Segment} from 'semantic-ui-react';
+import {Button, Grid, Icon, Segment} from 'semantic-ui-react';
 
 import {} from '../actions/index.js';
 
 class Portal extends Component {
-  componentDidMount() {
-  }
-
   render() {
     const {user} = this.props;
     const qs = queryString.parse(this.props.location.search);
@@ -48,37 +45,37 @@ class Portal extends Component {
                   </Grid>
                 </Segment>
               );
-            } else {
-              return (
-                <Segment basic textAlign="center">
-                  <p style={{fontSize: '1.4em'}}>
-                    Dette er innlogging for DNT-foreninger, andre{' '}
-                    innholdspartnere og privatpersoner som skal publisere{' '}
-                    innhold på UT.no.
-                  </p>
-                  <p style={{fontSize: '1.4em'}}>
-                    Hvis du ikke har en DNT-bruker kan du{' '}
-                    <a href="https://www.dnt.no/minside/logg-inn/?next=/minside/#registrering">registrere deg</a>.
-                  </p>
-                  {
-                    qs && qs.error && qs.error === 'auth' &&
-                    <Message error>
-                      Det skjedde en feil ved innlogging. Prøv igjen, og {' '}
-                      ta kontakt dersom feilen vedvarer.
-                    </Message>
-                  }
-                  <Button
-                    as="a"
-                    href="/logg-inn/dnt"
-                    icon="user"
-                    labelPosition="left"
-                    content="Logg inn"
-                    color="grey"
-                    size="huge"
-                  />
-                </Segment>
-              );
             }
+
+            return (
+              <Segment basic textAlign="center">
+                <p style={{fontSize: '1.4em'}}>
+                  Dette er innlogging for DNT-foreninger, andre{' '}
+                  innholdspartnere og privatpersoner som skal publisere{' '}
+                  innhold på UT.no.
+                </p>
+                <p style={{fontSize: '1.4em'}}>
+                  Hvis du ikke har en DNT-bruker kan du{' '}
+                  <a href="https://www.dnt.no/minside/logg-inn/?next=/minside/#registrering">registrere deg</a>.
+                </p>
+                {
+                  qs && qs.error && qs.error === 'auth' &&
+                  <Message error>
+                    Det skjedde en feil ved innlogging. Prøv igjen, og {' '}
+                    ta kontakt dersom feilen vedvarer.
+                  </Message>
+                }
+                <Button
+                  as="a"
+                  href="/logg-inn/dnt"
+                  icon="user"
+                  labelPosition="left"
+                  content="Logg inn"
+                  color="grey"
+                  size="huge"
+                />
+              </Segment>
+            );
           })()
         }
       </div>

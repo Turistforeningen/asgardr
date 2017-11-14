@@ -6,7 +6,7 @@ import {Container} from 'semantic-ui-react';
 import Invite from './scenes/Invite.jsx';
 import Confirm from './scenes/Confirm.jsx';
 
-import Header from './components/Header.jsx';
+import Header from '../../components/Header.jsx';
 
 require('./styles/app.scss');
 

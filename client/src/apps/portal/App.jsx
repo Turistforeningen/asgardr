@@ -5,7 +5,7 @@ import {Container} from 'semantic-ui-react';
 
 import Portal from './scenes/Portal.jsx';
 
-import Header from './components/Header.jsx';
+import Header from '../../components/Header.jsx';
 
 require('./styles/app.scss');
 

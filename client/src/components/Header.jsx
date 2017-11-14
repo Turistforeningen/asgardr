@@ -1,7 +1,7 @@
 import React from 'react';
 import {Menu} from 'semantic-ui-react';
 
-import logo from '../../../assets/images/dnt-logo-circle.svg';
+import logo from '../assets/images/dnt-logo-circle.svg';
 
 const Header = ({user}) => (
   <header>

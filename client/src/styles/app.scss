@@ -9,11 +9,24 @@ header {
 
   a.item.logo {
     padding: 0.5em !important;
-    background-color: #d82d20 !important;
+
+    &.dnt {
+      background-color: #d82d20 !important;
+
+      img {
+        width: 2.4em !important;
+      }
+    }
+
+    &.utno {
+      img {
+        width: 5em !important;
+        margin: 0.6em !important;
+      }
+    }
 
     img {
       margin: 0 !important;
-      width: 2.4em !important;
     }
   }
 }

@@ -5,7 +5,6 @@ import logo from '../assets/images/dnt-logo-circle.svg';
 
 const Header = ({user}) => (
   <header>
-    <Menu attached="top" fixed="top">Hello</Menu>
     <div className="ui fixed top inverted menu">
       <div className="ui container">
         {

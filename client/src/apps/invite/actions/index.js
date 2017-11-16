@@ -117,7 +117,7 @@ export function acceptInvite(code, group, user) {
           return Promise.reject(new RejectError('Koden er ikke gyldig for denne gruppen'));
         } else if (invite.brukt === true) {
           return Promise.reject(new RejectError('Koden har allerede blitt brukt'));
-        } else if (users.find(u => u.id === user.sherpa_id)) {
+        } else if (users.find(u => `${u.id}` === `sherpa3:${user.sherpa_id}`)) {
           return Promise.reject(new RejectError('Brukeren har allerede tilgang til denne gruppen'));
         }
 
@@ -127,7 +127,7 @@ export function acceptInvite(code, group, user) {
               ...invite,
               brukt: true,
               brukt_av: {
-                id: user.sherpa_id,
+                id: user.id,
                 navn: `${user.fornavn} ${user.etternavn}`,
                 epost: user.epost,
               },
@@ -140,7 +140,7 @@ export function acceptInvite(code, group, user) {
         json.privat.brukere = [
           ...users,
           {
-            id: user.sherpa_id,
+            id: user.id,
             navn: `${user.fornavn} ${user.etternavn}`,
             epost: user.epost,
           },

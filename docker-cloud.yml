@@ -11,12 +11,12 @@ asgardr-node:
   image: 'turistforeningen/asgardr:node'
   autoredeploy: true
   environment:
-    - 'APP_URL=https://asgardr.app.dnt.no'
+    - 'APP_URL=https://admin.nasjonalturbase.no'
     - FORCE_SSL=true
     - HSTS_MAX_AGE=31536000
     - NODE_ENV=production
     - 'NTB_API_URL=https://dev.nasjonalturbase.no'
-    - 'VIRTUAL_HOST=http://asgardr.app.dnt.no*,https://asgardr.app.dnt.no*'
+    - 'VIRTUAL_HOST=http://admin.nasjonalturbase.no*,https://admin.nasjonalturbase.no*'
     - VIRTUAL_HOST_WEIGHT=20
     - VIRTUAL_PATH=/
     - VIRTUAL_PORT=8080

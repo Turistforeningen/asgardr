@@ -165,7 +165,7 @@ export function acceptInvite(code, group, user) {
           html: `<h2>Hei ${user.fornavn} ${user.etternavn},</h2>
             <p>Velkommen som medlem i gruppa ${group.navn}!</p>
             <p>Du har nå tilgang til redigering av gruppas innhold på UT.no.</p>
-            <p><a href="https://asgardr.app.dnt.no/">Klikk her for å komme i gang</a>!</p>
+            <p><a href="https://admin.nasjonalturbase.no">Klikk her for å komme i gang</a>!</p>
             <p>
               Vennlig hilsen<br>
               <a href="https://www.ut.no">UT.no</a> /

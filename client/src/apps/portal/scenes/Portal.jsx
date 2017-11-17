@@ -24,7 +24,7 @@ class Portal extends Component {
                   <Grid columns={2} relaxed>
                     <Grid.Column>
                         <Segment basic textAlign="center">
-                          <a href="https://tur-dev.app.dnt.no/logout?next=/login/dnt/connect">
+                          <a href="https://tur.app.dnt.no/logout?next=/login/dnt/connect">
                             <Icon name="map signs" size="huge" />
                             <br /><br />
                             <Button color="blue" content="Turforslag" icon='right arrow' labelPosition='right' />

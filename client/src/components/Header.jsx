@@ -10,7 +10,7 @@ const Header = ({user}) => (
       <div className="ui container">
         {
           user && user.isAuthenticated && user.data.is_admin ?
-            <a href="https://www.dnt.no/sherpa" className="header item logo dnt">
+            <a href="https://www.dnt.no/sherpa" className="header item logo">
               <img src={dntLogo} />
             </a>
           :

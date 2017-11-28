@@ -1,5 +1,5 @@
-asgardr-assets:
-  image: 'turistforeningen/asgardr:assets'
+asgardr-dev-assets:
+  image: 'turistforeningen/asgardr-dev:assets'
   tags:
     - app
     - volume-2
@@ -7,8 +7,8 @@ asgardr-assets:
     - /assets
   command: /bin/true
   restart: always
-asgardr-node:
-  image: 'turistforeningen/asgardr:node'
+asgardr-dev-node:
+  image: 'turistforeningen/asgardr-dev:node'
   autoredeploy: true
   environment:
     - 'APP_URL=https://admin.nasjonalturbase.no'
@@ -24,7 +24,7 @@ asgardr-node:
   expose:
     - '8080'
   links:
-    - 'asgardr-redis:redis'
+    - 'asgardr-dev-redis:redis'
     - 'statsd.statsd-librato:statsd'
   restart: always
   command: node index.js
@@ -32,9 +32,9 @@ asgardr-node:
     - app
     - volume-2
   volumes_from:
-    - 'asgardr-assets:ro'
+    - 'asgardr-dev-assets:ro'
     - 'secrets:ro'
-asgardr-redis:
+asgardr-dev-redis:
   autoredeploy: true
   command: redis-server --appendonly yes
   image: 'redis:3.0'
@@ -43,7 +43,7 @@ asgardr-redis:
     - app
     - volume-2
 secrets:
-  image: 'turistforeningen/asgardr-secrets:v1'
+  image: 'turistforeningen/asgardr-secrets:dev'
   tags:
     - app
     - volume-2

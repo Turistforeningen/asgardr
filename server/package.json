@@ -29,6 +29,8 @@
     "nodemon": "^1.12.1",
     "nsp": "^2.4.0",
     "nunjucks": "^3.0.1",
-    "raven": "^2.2.1"
+    "raven": "^2.2.1",
+    "turbasen": "^1.6.0",
+    "turbasen-auth": "^2.0.0"
   }
 }

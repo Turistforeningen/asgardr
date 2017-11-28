@@ -12,6 +12,10 @@ module.exports = {
       'babel-polyfill',
       './src/apps/portal/index',
     ],
+    convert: [
+      'babel-polyfill',
+      './src/index',
+    ],
   },
   output: {
     path: path.join(__dirname, 'build'),

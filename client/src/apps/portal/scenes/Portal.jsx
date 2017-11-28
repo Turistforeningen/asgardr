@@ -74,6 +74,20 @@ class Portal extends Component {
                   color="grey"
                   size="huge"
                 />
+                <Segment basic textAlign="center">
+                  {
+                    qs && qs.error && qs.error === 'auth' &&
+                    <Message error>
+                      Det skjedde en feil ved innlogging. Prøv igjen, og {' '}
+                      ta kontakt dersom feilen vedvarer.
+                    </Message>
+                  }
+                  <form action="/logg-inn/turbasen" method="POST">
+                    <input type="text" name="email" value="havard.ranum@me.com" />
+                    <input type="password" name="password" value="a" />
+                    <button type="submit">Logg inn</button>
+                  </form>
+                </Segment>
               </Segment>
             );
           })()

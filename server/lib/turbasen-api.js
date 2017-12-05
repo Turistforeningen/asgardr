@@ -22,9 +22,16 @@ router.all('*', (req, res, next) => {
     body: req.body ? JSON.stringify(req.body) : undefined,
   };
 
+  let statusCode;
+
   fetch(url, options)
     .then((result) => {
+      if (result.status >= 400) {
+        return Promise.reject(new Error('Request to Nasjonal Turbase failed'));
+      }
+
       res.status(result.status);
+
       return result.json();
     })
     .then((json) => { // eslint-disable-line consistent-return
@@ -63,7 +70,7 @@ router.all('*', (req, res, next) => {
     })
     .catch((err) => {
       console.error(err); // eslint-disable-line
-      res.json({message: 'An error occurred.'});
+      res.status(statusCode).json({message: 'An error occurred.'});
     });
 });
 

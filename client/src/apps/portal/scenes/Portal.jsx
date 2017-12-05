@@ -83,8 +83,8 @@ class Portal extends Component {
                     </Message>
                   }
                   <form action="/logg-inn/turbasen" method="POST">
-                    <input type="text" name="email" value="havard.ranum@me.com" />
-                    <input type="password" name="password" value="a" />
+                    <input type="text" name="email" />
+                    <input type="password" name="password" />
                     <button type="submit">Logg inn</button>
                   </form>
                 </Segment>

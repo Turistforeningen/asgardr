@@ -1,11 +1,11 @@
 import React from 'react';
 import {Button, Message, Segment} from 'semantic-ui-react';
 
-const ConvertConfirm = ({turbasenUser, dntUser, userConvert, errors}) => (
+const ConvertConfirm = ({turbasenUser, dntUser, group, userConvert, errors}) => (
   <Segment padded stacked>
     <p>
       Kontroller nedenfor at du er logget inn som riktig bruker, og trykk{' '}
-      bekreft for å koble din DNT-bruker til gruppa{' '}
+      bekreft for å koble din DNT-bruker til gruppa {group.navn} {' '}
       på UT.no.
     </p>
     <p>Etter dette vil du måtte logge på UT.no med din DNT-bruker i stedet for ditt gamle brukernavn og passord.</p>
@@ -29,7 +29,7 @@ const ConvertConfirm = ({turbasenUser, dntUser, userConvert, errors}) => (
       fluid
       onClick={userConvert}
     >
-      Konverter bruker
+      Gå videre
     </Button>
   </Segment>
 );

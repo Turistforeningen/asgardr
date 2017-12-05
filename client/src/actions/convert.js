@@ -5,6 +5,73 @@ import turbasen from '../apis/turbasen.js';
 import sendgrid from '../apis/sendgrid.js';
 import RejectError from '../lib/reject-error.js';
 
+export const FETCH_TURBASEN_USER_REQUEST = 'FETCH_TURBASEN_USER_REQUEST';
+export function fetchTurbasenUserRequest() {
+  return {
+    type: FETCH_TURBASEN_USER_REQUEST,
+    isFetching: true,
+    isFetched: false,
+  };
+}
+
+export const FETCH_TURBASEN_USER_RESPONSE = 'FETCH_TURBASEN_USER_RESPONSE';
+export function fetchTurbasenUserResponse(turbasen, dnt, group) {
+  return {
+    type: FETCH_TURBASEN_USER_RESPONSE,
+    turbasen: turbasen,
+    dnt: dnt,
+    group: group,
+    isFetching: false,
+    isFetched: true,
+    isConverted: !!turbasen && !!dnt,
+  };
+}
+
+export const FETCH_TURBASEN_USER_ERROR = 'FETCH_TURBASEN_USER_ERROR';
+export function fetchTurbasenUserError(err) {
+  return {
+    type: FETCH_TURBASEN_USER_ERROR,
+    isFetching: false,
+    isFetched: false,
+    errors: err,
+  };
+}
+
+export function fetchTurbasenUser(email, groupId) {
+  return (dispatch, getState) => {
+    dispatch(fetchTurbasenUserRequest());
+
+    return turbasen
+      .get('grupper', groupId)
+      .then((json) => {
+        // TODO: Validate response
+        const turbasen = json.privat.brukere.find(u => (
+          u.epost === email && typeof u.pbkdf2 !== 'undefined'
+        ));
+
+        const dnt = json.privat.brukere.find(u => (
+          u.epost === email && /sherpa/.test(u.id)
+        ));
+
+        const group = Object.assign(
+          {},
+          json,
+        );
+
+        return dispatch(fetchTurbasenUserResponse(turbasen, dnt, group));
+      })
+      .catch((err) => {
+        if (err instanceof RejectError) {
+          dispatch(fetchTurbasenUserError(err));
+        } else {
+          console.error(err); // eslint-disable-line no-console
+
+          Raven.captureException(err);
+        }
+      });
+  };
+}
+
 export const USER_CONVERT_REQUEST = 'USER_CONVERT_REQUEST';
 export function userConvertRequest() {
   return {
@@ -17,6 +84,7 @@ export const USER_CONVERT_RESPONSE = 'USER_CONVERT_RESPONSE';
 export function userConvertResponse(user) {
   return {
     type: USER_CONVERT_RESPONSE,
+    isConverted: true,
     user: user,
   };
 }
@@ -54,9 +122,16 @@ export function userConvert(turbasenUser, dntUser) {
           return Promise.reject(new RejectError('Brukeren har allerede tilgang til denne gruppa'));
         }
 
+        const newUser = {
+          id: `sherpa3:${dntUser.sherpa_id}`,
+          navn: `${dntUser.fornavn} ${dntUser.etternavn}`,
+          epost: dntUser.epost,
+        };
+
         userConverted = {
           ...user,
           konvertert: true,
+          konvertert_til: newUser,
         };
 
         json.privat.brukere = [
@@ -67,11 +142,7 @@ export function userConvert(turbasenUser, dntUser) {
 
             return u;
           }),
-          {
-            id: `sherpa3:${dntUser.sherpa_id}`,
-            navn: `${dntUser.fornavn} ${dntUser.etternavn}`,
-            epost: dntUser.epost,
-          },
+          newUser,
         ];
 
         return turbasen.save('grupper', group._id, json);

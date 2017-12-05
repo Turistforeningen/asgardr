@@ -12,16 +12,21 @@ require('./styles/app.scss');
 
 class App extends Component {
   render() {
-    const {user} = this.props;
+    const {session} = this.props;
 
     return (
       <Switch basename="/">
         <div>
-          <Header user={user} />
+          <Header user={session.user} />
+          {
+            session.isFetching ?
+            null
+            :
             <Container>
               <Route exact path="/bruker/turbasen" component={Turbasen} />
               <Route exact path="/bruker/konverter" component={Convert} />
             </Container>
+          }
         </div>
       </Switch>
     );
@@ -29,7 +34,7 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user,
+  session: state.session,
 });
 
 const mapDispatchToProps = dispatch => ({

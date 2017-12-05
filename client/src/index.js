@@ -22,7 +22,6 @@ if (isProduction) {
   }).install();
 }
 
-store.dispatch(fetchUser());
 store.dispatch(fetchSession());
 
 const render = (Component) => {

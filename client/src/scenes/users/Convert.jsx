@@ -3,12 +3,19 @@ import {connect} from 'react-redux';
 import {autobind} from 'core-decorators';
 import {Button, Grid, Header, Message, Segment} from 'semantic-ui-react';
 
-import {userConvert} from '../../actions/convert.js';
+import {fetchTurbasenUser, userConvert} from '../../actions/convert.js';
 
 import ConvertConfirm from '../../components/users/ConvertConfirm.jsx';
 import ConvertSuccess from '../../components/users/ConvertSuccess.jsx';
 
 class Convert extends Component {
+  componentDidMount() {
+    const {session} = this.props;
+    const {turbasen: turbasenUser} = session.data;
+
+    this.props.fetchTurbasenUser(turbasenUser.epost, turbasenUser.gruppe._id);
+  }
+
   @autobind
   userConvert() {
     const {session} = this.props;
@@ -20,11 +27,11 @@ class Convert extends Component {
   render() {
     const {conversion, session, isFetching} = this.props;
 
-    if (isFetching) {
+    if (isFetching || !conversion.isFetched) {
       return null;
     }
 
-    const turbasenUser = session.data.turbasen;
+    const turbasenUser = conversion.from;
     const errors = conversion.errors;
 
     if (typeof turbasenUser === 'undefined') {
@@ -39,12 +46,13 @@ class Convert extends Component {
     }
 
     const dntUser = session.data.user;
+    const group = conversion.group;
 
     return (
       <Grid textAlign="center" style={{height: '100%'}} verticalAlign="middle">
         <Grid.Column style={{maxWidth: 450}}>
           {
-            turbasenUser.konvertert ?
+            conversion.isConverted ?
             <ConvertSuccess
               turbasenUser={turbasenUser}
               dntUser={dntUser}
@@ -53,6 +61,7 @@ class Convert extends Component {
             <ConvertConfirm
               turbasenUser={turbasenUser}
               dntUser={dntUser}
+              group={group}
               userConvert={this.userConvert}
               errors={errors}
             />
@@ -73,6 +82,9 @@ const mapDispatchToProps = dispatch => ({
   userConvert: function dispatchUserConvert(turbasen, user) {
     dispatch(userConvert(turbasen, user));
   },
+  fetchTurbasenUser: function dispatchFetchTurbasenUser(email, group) {
+    dispatch(fetchTurbasenUser(email, group));
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Convert);

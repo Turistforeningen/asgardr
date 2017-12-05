@@ -96,7 +96,6 @@ router.use('/api/turbasen', require('./lib/turbasen-api'));
 router.use('/api/sendgrid', require('./lib/sendgrid-api'));
 
 router.use('/', (req, res, next) => {
-  console.log(req.session.id);
   res.render('portal.html', {app: 'portal'});
 });
 

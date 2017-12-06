@@ -124,14 +124,14 @@ router.get('/verifiser', (req, res, next) => { // eslint-disable-line consistent
 router.post('/turbasen', turbasenAuth.middleware, (req, res, next) => {
   const user = req.turbasenAuth;
 
-  if (user === false) {
-    res.redirect('/logg-inn?err=TBA');
-  } else {
+  if (user) {
     req.session.turbasen = `turbasen:${user.gruppe._id}:${user.epost}`;
 
     redis.hmset(req.session.id, 'turbasen', JSON.stringify(user)).then(() => {
       res.redirect('/bruker/turbasen');
     });
+  } else {
+    res.redirect('/?error=TBAUTH-401');
   }
 });
 

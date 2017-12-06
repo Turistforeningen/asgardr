@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import queryString from 'query-string';
-import {Button, Grid, Icon, Segment} from 'semantic-ui-react';
+import {Button, Grid, Icon, Form, Message, Segment} from 'semantic-ui-react';
 
 import {} from '../actions/index.js';
+import LoginTurbasen from '../../../components/users/LoginTurbasen.jsx';
 
 class Portal extends Component {
   render() {
@@ -47,6 +48,12 @@ class Portal extends Component {
               );
             }
 
+            if (qs && qs.error && qs.error === 'TBAUTH-401') {
+              return (
+                <LoginTurbasen error={qs.error}/>
+              );
+            }
+
             return (
               <Segment basic textAlign="center">
                 <p style={{fontSize: '1.4em'}}>
@@ -74,20 +81,7 @@ class Portal extends Component {
                   color="grey"
                   size="huge"
                 />
-                <Segment basic textAlign="center">
-                  {
-                    qs && qs.error && qs.error === 'auth' &&
-                    <Message error>
-                      Det skjedde en feil ved innlogging. Prøv igjen, og {' '}
-                      ta kontakt dersom feilen vedvarer.
-                    </Message>
-                  }
-                  <form action="/logg-inn/turbasen" method="POST">
-                    <input type="text" name="email" />
-                    <input type="password" name="password" />
-                    <button type="submit">Logg inn</button>
-                  </form>
-                </Segment>
+                <LoginTurbasen />
               </Segment>
             );
           })()

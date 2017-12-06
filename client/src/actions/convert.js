@@ -49,9 +49,7 @@ export function fetchTurbasenUser(email, groupId) {
           u.epost === email && typeof u.pbkdf2 !== 'undefined'
         ));
 
-        const dnt = json.privat.brukere.find(u => (
-          u.epost === email && /sherpa/.test(u.id)
-        ));
+        const dnt = turbasen.konvertert_av;
 
         const group = Object.assign(
           {},
@@ -131,7 +129,7 @@ export function userConvert(turbasenUser, dntUser) {
         userConverted = {
           ...user,
           konvertert: true,
-          konvertert_til: newUser,
+          konvertert_av: newUser,
         };
 
         json.privat.brukere = [

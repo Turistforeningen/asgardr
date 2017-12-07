@@ -16,18 +16,18 @@ class App extends Component {
 
     return (
       <Switch basename="/">
-        <div>
-          <Header user={session.user} />
-          {
-            session.isFetching ?
-            null
-            :
-            <Container>
-              <Route exact path="/bruker/turbasen" component={Turbasen} />
-              <Route exact path="/bruker/konverter" component={Convert} />
-            </Container>
-          }
-        </div>
+        {
+          session.isFetching ?
+          null
+          :
+          <div>
+            <Header isAuthenticated={session.isAuthenticated} user={session.data.user} />
+              <Container>
+                <Route exact path="/bruker/turbasen" component={Turbasen} />
+                <Route exact path="/bruker/konverter" component={Convert} />
+              </Container>
+          </div>
+        }
       </Switch>
     );
   }

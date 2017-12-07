@@ -17,7 +17,7 @@ export function receiveSession(session) {
   return {
     type: RECEIVE_SESSION,
     session: session,
-    isAuthenticated: typeof session === 'object',
+    isAuthenticated: session && typeof session.user === 'object',
   };
 }
 

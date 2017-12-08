@@ -87,6 +87,8 @@ router.get('/verifiser', (req, res, next) => { // eslint-disable-line consistent
         user.is_sudo = true;
       }
 
+      console.log('login', req.session.id);
+
       return redis.hmset(req.session.id, 'user', JSON.stringify(user));
     })
     .then(result => redis.hmset(req.session.id, 'tokens', JSON.stringify(tokens)))
@@ -105,6 +107,8 @@ router.get('/verifiser', (req, res, next) => { // eslint-disable-line consistent
       return redis.hmset(req.session.id, 'user', JSON.stringify(user));
     })
     .then(() => {
+
+      console.log('next', req.session.id);
       if (req.query.next) {
         res.redirect(req.query.next);
       } else {

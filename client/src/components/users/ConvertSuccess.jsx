@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Message, Segment} from 'semantic-ui-react';
+import {Segment} from 'semantic-ui-react';
 
 const ConvertSuccess = ({turbasenUser, dntUser}) => (
   <Segment padded stacked>

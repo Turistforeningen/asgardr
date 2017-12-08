@@ -1,4 +1,3 @@
-import fetch from 'isomorphic-fetch';
 import Raven from 'raven-js';
 
 import turbasen from '../apis/turbasen.js';
@@ -15,15 +14,15 @@ export function fetchTurbasenUserRequest() {
 }
 
 export const FETCH_TURBASEN_USER_RESPONSE = 'FETCH_TURBASEN_USER_RESPONSE';
-export function fetchTurbasenUserResponse(turbasen, dnt, group) {
+export function fetchTurbasenUserResponse(turbasenUser, dntUser, group) {
   return {
     type: FETCH_TURBASEN_USER_RESPONSE,
-    turbasen: turbasen,
-    dnt: dnt,
+    turbasen: turbasenUser,
+    dnt: dntUser,
     group: group,
     isFetching: false,
     isFetched: true,
-    isConverted: !!turbasen && !!dnt,
+    isConverted: !!turbasenUser && !!dntUser,
   };
 }
 
@@ -45,18 +44,18 @@ export function fetchTurbasenUser(email, groupId) {
       .get('grupper', groupId)
       .then((json) => {
         // TODO: Validate response
-        const turbasen = json.privat.brukere.find(u => (
+        const turbasenUser = json.privat.brukere.find((u) => (
           u.epost === email && typeof u.pbkdf2 !== 'undefined'
         ));
 
-        const dnt = turbasen.konvertert_av;
+        const dntUser = turbasen.konvertert_av;
 
         const group = Object.assign(
           {},
-          json,
+          json
         );
 
-        return dispatch(fetchTurbasenUserResponse(turbasen, dnt, group));
+        return dispatch(fetchTurbasenUserResponse(turbasenUser, dntUser, group));
       })
       .catch((err) => {
         if (err instanceof RejectError) {
@@ -110,13 +109,13 @@ export function userConvert(turbasenUser, dntUser) {
       .then((json) => {
         const users = json.privat.brukere || [];
 
-        const user = users.find(u => u.epost === turbasenUser.epost);
+        const user = users.find((u) => u.epost === turbasenUser.epost);
 
         if (typeof user === 'undefined') {
           return Promise.reject(new RejectError('Brukeren finnes ikke i gruppa'));
         } else if (user.konvertert === true) {
           return Promise.reject(new RejectError('Brukeren er allerede konvertert'));
-        } else if (users.find(u => `${u.id}` === `sherpa3:${dntUser.sherpa_id}`)) {
+        } else if (users.find((u) => `${u.id}` === `sherpa3:${dntUser.sherpa_id}`)) {
           return Promise.reject(new RejectError('Brukeren har allerede tilgang til denne gruppa'));
         }
 

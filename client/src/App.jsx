@@ -5,6 +5,9 @@ import {Container} from 'semantic-ui-react';
 
 import Convert from './scenes/users/Convert.jsx';
 import Turbasen from './scenes/users/Turbasen.jsx';
+import Portal from './scenes/portal/Portal.jsx';
+
+import Invite from './scenes/invites/Invite.jsx';
 
 import Header from './components/Header.jsx';
 
@@ -23,8 +26,10 @@ class App extends Component {
           <div>
             <Header isAuthenticated={session.isAuthenticated} user={session.data.user} />
               <Container>
+                <Route exact path="/" component={Portal} />
                 <Route exact path="/bruker/turbasen" component={Turbasen} />
                 <Route exact path="/bruker/konverter" component={Convert} />
+                <Route path="/invitasjon" component={Invite} />
               </Container>
           </div>
         }
@@ -33,11 +38,11 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   session: state.session,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

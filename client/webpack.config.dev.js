@@ -4,27 +4,27 @@ const webpack = require('webpack');
 module.exports = {
   devtool: 'eval',
   entry: {
-    convert: [
+    app: [
       'babel-polyfill',
       'react-hot-loader/patch',
       `webpack-dev-server/client?http://${process.env.VIRTUAL_HOST}`,
       'webpack/hot/only-dev-server',
       './src/index',
     ],
-    invite: [
-      'babel-polyfill',
-      'react-hot-loader/patch',
-      `webpack-dev-server/client?http://${process.env.VIRTUAL_HOST}`,
-      'webpack/hot/only-dev-server',
-      './src/apps/invite/index',
-    ],
-    portal: [
-      'babel-polyfill',
-      'react-hot-loader/patch',
-      `webpack-dev-server/client?http://${process.env.VIRTUAL_HOST}`,
-      'webpack/hot/only-dev-server',
-      './src/apps/portal/index',
-    ],
+    // invite: [
+    //   'babel-polyfill',
+    //   'react-hot-loader/patch',
+    //   `webpack-dev-server/client?http://${process.env.VIRTUAL_HOST}`,
+    //   'webpack/hot/only-dev-server',
+    //   './src/apps/invite/index',
+    // ],
+    // portal: [
+    //   'babel-polyfill',
+    //   'react-hot-loader/patch',
+    //   `webpack-dev-server/client?http://${process.env.VIRTUAL_HOST}`,
+    //   'webpack/hot/only-dev-server',
+    //   './src/apps/portal/index',
+    // ],
   },
   output: {
     path: path.join(__dirname, 'tmp'),

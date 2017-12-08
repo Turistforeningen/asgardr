@@ -7,14 +7,12 @@ import Raven from 'raven-js';
 import 'semantic-ui-css/semantic.min.css';
 
 import store from './store.js';
-import {fetchUser} from './actions/users.js';
 import {fetchSession} from './actions/sessions.js';
 import App from './App.jsx';
 
 const appContainer = document.getElementById('app');
 const isProduction = appContainer.dataset.environment === 'production';
 const gitCommit = appContainer.dataset.gitcommit;
-const appName = appContainer.dataset.appname;
 
 if (isProduction) {
   Raven.config('https://39837588ca2444d4813af4fb16931594@sentry.io/222695', {

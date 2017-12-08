@@ -49,11 +49,11 @@ router.use((req, res, next) => {
 });
 
 router.use('/invitasjon', (req, res, next) => {
-  res.render('invite.html', {app: 'invite', code: req.query.kode});
+  res.render('app.html', {app: 'app', code: req.query.kode});
 });
 
 router.use('/bruker', (req, res, next) => {
-  res.render('app.html', {app: 'convert'});
+  res.render('app.html', {app: 'app'});
 });
 
 router.use('/logg-inn', require('./controllers/auth'));
@@ -80,9 +80,11 @@ router.use('/profil', requireApiAuth, (req, res, next) => {
 });
 
 router.use('/session', (req, res, next) => {
+  console.log('get session', req.session.id);
   redis.hgetall(req.session.id).then((data) => {
     const user = data.user ? JSON.parse(data.user) : undefined;
     const turbasen = data.turbasen ? JSON.parse(data.turbasen) : undefined;
+    console.log('get session', data, user, turbasen);
 
     if (req.accepts('html')) {
       res.status(404).send();
@@ -96,7 +98,7 @@ router.use('/api/turbasen', require('./lib/turbasen-api'));
 router.use('/api/sendgrid', require('./lib/sendgrid-api'));
 
 router.use('/', (req, res, next) => {
-  res.render('portal.html', {app: 'portal'});
+  res.render('app.html', {app: 'app'});
 });
 
 app.use(process.env.VIRTUAL_PATH, router);

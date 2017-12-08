@@ -8,7 +8,8 @@ const LoginTurbasen = ({error}) => (
         {
           error && error === 'TBAUTH-401' &&
           <Message error>
-            Du har oppgitt feil epost eller passord. Prøv igjen, og ta kontakt med oss dersom du har glemt e-post eller passord.
+            Du har oppgitt feil epost eller passord. Prøv igjen, og ta {' '}
+            kontakt med oss dersom du har glemt e-post eller passord.
           </Message>
         }
         <Form size="large" action="/logg-inn/turbasen" method="POST">

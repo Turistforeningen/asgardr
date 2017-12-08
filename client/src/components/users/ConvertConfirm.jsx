@@ -8,7 +8,10 @@ const ConvertConfirm = ({turbasenUser, dntUser, group, userConvert, errors}) => 
       bekreft for å koble din DNT-bruker til gruppa {group.navn} {' '}
       på UT.no.
     </p>
-    <p>Etter dette vil du måtte logge på UT.no med din DNT-bruker i stedet for ditt gamle brukernavn og passord.</p>
+    <p>
+      Etter dette vil du måtte logge på UT.no med din DNT-bruker i stedet{' '}
+      for ditt gamle brukernavn og passord.
+    </p>
     <Message success>
       Du er logget inn som {' '}
       <strong>{dntUser.fornavn} {dntUser.etternavn}</strong>,
@@ -17,7 +20,7 @@ const ConvertConfirm = ({turbasenUser, dntUser, group, userConvert, errors}) => 
     {
       errors && errors.length &&
       <Message error>
-        {errors.map(error => (
+        {errors.map((error) => (
           <p key={error.replace(' ', '')}>{error}</p>
         ))}
       </Message>

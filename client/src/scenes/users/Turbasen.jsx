@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {autobind} from 'core-decorators';
-import {Button, Grid, Header, Message, Segment} from 'semantic-ui-react';
+import {Button, Grid, Message, Segment} from 'semantic-ui-react';
 
 import {fetchTurbasenUser} from '../../actions/convert.js';
 
@@ -63,7 +62,7 @@ class Turbasen extends Component {
                     size="big"
                     color="blue"
                     fluid
-                    href={`/logg-inn/dnt?next=/bruker/konverter`}
+                    href={'/logg-inn/dnt?next=/bruker/konverter'}
                   >
                     Gå videre
                   </Button>
@@ -84,10 +83,10 @@ const mapStateToProps = (state, ownProps) => ({
   conversion: state.convert,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   fetchTurbasenUser: function dispatchFetchTurbasenUser(email, group) {
     dispatch(fetchTurbasenUser(email, group));
-  }
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Turbasen);

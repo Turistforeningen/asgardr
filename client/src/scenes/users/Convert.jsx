@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {autobind} from 'core-decorators';
-import {Button, Grid, Header, Message, Segment} from 'semantic-ui-react';
+import {Grid} from 'semantic-ui-react';
 
 import {fetchTurbasenUser, userConvert} from '../../actions/convert.js';
 
@@ -32,7 +32,7 @@ class Convert extends Component {
     }
 
     const turbasenUser = conversion.from;
-    const errors = conversion.errors;
+    const {errors} = conversion;
 
     if (typeof turbasenUser === 'undefined') {
       return (
@@ -46,7 +46,7 @@ class Convert extends Component {
     }
 
     const dntUser = session.data.user;
-    const group = conversion.group;
+    const {group} = conversion;
 
     return (
       <Grid textAlign="center" style={{height: '100%'}} verticalAlign="middle">
@@ -78,13 +78,13 @@ const mapStateToProps = (state, ownProps) => ({
   conversion: state.convert,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   userConvert: function dispatchUserConvert(turbasen, user) {
     dispatch(userConvert(turbasen, user));
   },
   fetchTurbasenUser: function dispatchFetchTurbasenUser(email, group) {
     dispatch(fetchTurbasenUser(email, group));
-  }
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Convert);

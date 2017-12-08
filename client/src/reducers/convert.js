@@ -7,7 +7,7 @@ import {
   FETCH_TURBASEN_USER_ERROR,
 } from '../actions/convert.js';
 
-export function convertReducer(state = {}, action) {
+export default function convertReducer(state = {}, action) {
   switch (action.type) {
     case FETCH_TURBASEN_USER_REQUEST:
       return {

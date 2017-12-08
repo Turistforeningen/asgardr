@@ -3,7 +3,7 @@ import {
   RECEIVE_SESSION,
 } from '../actions/sessions.js';
 
-export function sessionReducer(state = {}, action) {
+export default function sessionReducer(state = {isAuthenticated: false}, action) {
   switch (action.type) {
     case REQUEST_SESSION:
 

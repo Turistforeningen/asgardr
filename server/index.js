@@ -80,11 +80,9 @@ router.use('/profil', requireApiAuth, (req, res, next) => {
 });
 
 router.use('/session', (req, res, next) => {
-  console.log('get session', req.session.id);
   redis.hgetall(req.session.id).then((data) => {
     const user = data.user ? JSON.parse(data.user) : undefined;
     const turbasen = data.turbasen ? JSON.parse(data.turbasen) : undefined;
-    console.log('get session', data, user, turbasen);
 
     if (req.accepts('html')) {
       res.status(404).send();

@@ -1,39 +1,47 @@
 import React from 'react';
-import {Button, Message, Segment} from 'semantic-ui-react';
+import {Button, Header, Icon, Message, Segment} from 'semantic-ui-react';
 
 const ConvertConfirm = ({turbasenUser, dntUser, group, userConvert, errors}) => (
-  <Segment padded stacked>
+  <Segment padded stacked textAlign="left">
+    <Header>
+      Nesten i mål!
+    </Header>
     <p>
-      Kontroller nedenfor at du er logget inn som riktig bruker, og trykk{' '}
-      bekreft for å koble din DNT-bruker til gruppa {group.navn} {' '}
-      på UT.no.
+      Bekreft at du er logget inn med riktig DNT-bruker, så er alt {' '}
+      klart for å ta i bruk den nye innloggingen.
     </p>
-    <p>
-      Etter dette vil du måtte logge på UT.no med din DNT-bruker i stedet{' '}
-      for ditt gamle brukernavn og passord.
-    </p>
-    <Message success>
-      Du er logget inn som {' '}
-      <strong>{dntUser.fornavn} {dntUser.etternavn}</strong>,
-      med epost <strong>{dntUser.epost}</strong>.
-    </Message>
-    {
-      errors && errors.length &&
-      <Message error>
-        {errors.map((error) => (
-          <p key={error.replace(' ', '')}>{error}</p>
-        ))}
+    <Segment>
+      <Header size="medium">
+        <Icon circular name="user add" color="red" />
+        <Header.Content>
+          DNT-bruker
+          <Header.Subheader>
+            Ny innlogging
+          </Header.Subheader>
+        </Header.Content>
+      </Header>
+      <Message>
+        Du er logget inn som{' '}
+        <strong>{dntUser.fornavn} {dntUser.etternavn}</strong>,
+        med epost <strong>{dntUser.epost}</strong>.
       </Message>
-    }
-    <Button
-      as="a"
-      size="big"
-      color="blue"
-      fluid
-      onClick={userConvert}
-    >
-      Gå videre
-    </Button>
+      {
+        errors && errors.length &&
+        <Message error>
+          {errors.map((error) => (
+            <p key={error.replace(' ', '')}>{error}</p>
+          ))}
+        </Message>
+      }
+      <Button
+        size="big"
+        color="red"
+        fluid
+        onClick={userConvert}
+      >
+        Bekreft
+      </Button>
+    </Segment>
   </Segment>
 );
 

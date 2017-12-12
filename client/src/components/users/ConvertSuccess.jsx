@@ -2,7 +2,7 @@ import React from 'react';
 import {Segment} from 'semantic-ui-react';
 
 const ConvertSuccess = ({turbasenUser, dntUser}) => (
-  <Segment padded stacked>
+  <Segment padded stacked textAlign="left">
     <h2>Gratulerer!</h2>
     <p>
       Du er nå i mål. Neste gang du skal logge inn på UT velger du {' '}

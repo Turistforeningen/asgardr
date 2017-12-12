@@ -22,7 +22,7 @@ export function fetchTurbasenUserResponse(turbasenUser, dntUser, group) {
     group: group,
     isFetching: false,
     isFetched: true,
-    isConverted: !!turbasenUser && !!dntUser,
+    isConverted: !!turbasenUser.konvertert,
   };
 }
 
@@ -48,7 +48,7 @@ export function fetchTurbasenUser(email, groupId) {
           u.epost === email && typeof u.pbkdf2 !== 'undefined'
         ));
 
-        const dntUser = turbasen.konvertert_av;
+        const dntUser = turbasenUser.konvertert_av;
 
         const group = Object.assign(
           {},

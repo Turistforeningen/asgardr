@@ -77,7 +77,6 @@ class Portal extends Component {
                   color="grey"
                   size="huge"
                 />
-                <LoginTurbasen />
               </Segment>
             );
           })()

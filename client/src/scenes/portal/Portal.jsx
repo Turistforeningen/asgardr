@@ -9,13 +9,13 @@ class Portal extends Component {
   render() {
     const {session} = this.props;
     const qs = queryString.parse(this.props.location.search);
-    const user = session.data;
+    const {user} = session.data;
 
     return (
       <div>
         {
           (() => {
-            if (user.isAuthenticated === true) {
+            if (session.isAuthenticated === true) {
               return (
                 <Segment>
                   <Grid columns={2} relaxed>
@@ -28,7 +28,7 @@ class Portal extends Component {
                           </a>
                       </Segment>
                     </Grid.Column>
-                    {(user.data.is_admin || user.data.is_external) &&
+                    {(user.is_admin || user.is_external) &&
                       <Grid.Column>
                         <Segment basic textAlign="center">
                             <a href="https://hytte.app.dnt.no/auth/logout?next=/auth/login/dnt">

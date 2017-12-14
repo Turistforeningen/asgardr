@@ -7,7 +7,7 @@ const ConvertSuccess = ({turbasenUser, dntUser}) => (
     <p>
       Du er nå i mål. Neste gang du skal logge inn på UT går du til{' '}
       <a href="https://admin.nasjonalturbase.no">https://admin.nasjonalturbase.no</a>{' '}
-      og velger «Logg inn med DNT-bruker». Husk å oppdatere bokmerkene dine!
+      og logger inn med din DNT-bruker. Husk å oppdatere bokmerkene dine!
     </p>
     <p>
       Nå kan du gå videre til f.eks.{' '}

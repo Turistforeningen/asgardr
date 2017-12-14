@@ -160,8 +160,11 @@ export function userConvert(turbasenUser, dntUser) {
           subject: `Velkommen til gruppa ${group.navn} på UT.no`,
           html: `<h2>Hei ${dntUser.fornavn} ${dntUser.etternavn},</h2>
             <p>Velkommen som medlem i gruppa ${group.navn}!</p>
-            <p>Du har nå tilgang til redigering av gruppas innhold på UT.no med din DNT-bruker.</p>
-            <p><a href="https://admin.nasjonalturbase.no">Klikk her for å komme i gang</a>!</p>
+            <p>Du har nå tilgang til gruppas innhold med din DNT-bruker.</p>
+            <p>Neste gang du skal logge inn på UT går du til
+              <a href="https://admin.nasjonalturbase.no">https://admin.nasjonalturbase.no</a>
+              og velger «Logg inn med DNT-bruker». Husk å oppdatere bokmerkene dine!
+            </p>
             <p>
               Vennlig hilsen<br>
               <a href="https://www.ut.no">UT.no</a> /

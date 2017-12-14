@@ -29,7 +29,7 @@ const InviteIndex = ({invite, isAuthenticated, user}) => (
                   size="big"
                   color="blue"
                   fluid
-                  href={`/invitasjon/bekreft?kode=${invite.code}`}
+                  href={`/invitasjon/bekreft?kode=${invite.data.kode}`}
                 >
                   Gå videre
                 </Button>
@@ -49,7 +49,7 @@ const InviteIndex = ({invite, isAuthenticated, user}) => (
                 size="big"
                 color="blue"
                 fluid
-                href={`/logg-inn/dnt?next=/invitasjon/bekreft?kode=${invite.data.code}`}
+                href={`/logg-inn/dnt?next=/invitasjon/bekreft?kode=${invite.data.kode}`}
               >
                 Gå videre
               </Button>

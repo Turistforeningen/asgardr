@@ -18,7 +18,7 @@ const Confirm = ({invite, isAuthenticated, user, acceptInvite}) => (
                 size="big"
                 color="blue"
                 fluid
-                href={`/logg-inn/dnt?next=/invitasjon/bekreft?kode=${invite.code}`}
+                href={`/logg-inn/dnt?next=/invitasjon/bekreft?kode=${invite.data.kode}`}
               >
                 Logg inn
               </Button>

@@ -3,11 +3,7 @@
 const redis = require('./redis');
 
 exports.apiMiddleware = (req, res, next) => {
-  if (!req.session.user) {
-    return res.status(401).json({message: 'Unauthorized'});
-  }
-
-  return redis.hgetall(req.session.user)
+  return redis.hgetall(req.session.id)
     .then((data) => {
       const user = JSON.parse(data.user);
 
@@ -21,11 +17,7 @@ exports.apiMiddleware = (req, res, next) => {
 };
 
 exports.middleware = (req, res, next) => {
-  if (!req.session.user) {
-    return res.redirect(`/?next=${req.originalUrl}`);
-  }
-
-  return redis.hgetall(req.session.user)
+  return redis.hgetall(req.session.id)
     .then((data) => { // eslint-disable-line consistent-return
       const user = JSON.parse(data.user);
 

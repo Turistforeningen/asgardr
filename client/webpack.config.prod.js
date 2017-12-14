@@ -4,13 +4,9 @@ const webpack = require('webpack');
 module.exports = {
   devtool: 'source-map',
   entry: {
-    invite: [
+    app: [
       'babel-polyfill',
-      './src/apps/invite/index',
-    ],
-    portal: [
-      'babel-polyfill',
-      './src/apps/portal/index',
+      './src/index',
     ],
   },
   output: {

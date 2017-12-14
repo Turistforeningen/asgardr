@@ -1,9 +1,8 @@
-import fetch from 'isomorphic-fetch';
 import Raven from 'raven-js';
 
-import turbasen from '../../../apis/turbasen.js';
-import sendgrid from '../../../apis/sendgrid.js';
-import RejectError from '../../../lib/reject-error.js';
+import turbasen from '../apis/turbasen.js';
+import sendgrid from '../apis/sendgrid.js';
+import RejectError from '../lib/reject-error.js';
 
 export const SET_MESSAGE = 'SET_MESSAGE';
 export function setMessage() {
@@ -59,7 +58,7 @@ export function fetchInvite(code) {
 
         // Find invite
         const group = json.documents[0];
-        const invite = json.documents[0].privat.invitasjoner.find(i => i.kode === code);
+        const invite = json.documents[0].privat.invitasjoner.find((i) => i.kode === code);
 
         // Invite is found, unique – receive it
         return dispatch(inviteFetchResponse({...invite, gruppe: group}));
@@ -111,13 +110,13 @@ export function acceptInvite(code, group, user) {
         const invites = json.privat.invitasjoner || [];
         const users = json.privat.brukere || [];
 
-        const invite = invites.find(invitasjon => invitasjon.kode === code);
+        const invite = invites.find((invitasjon) => invitasjon.kode === code);
 
         if (typeof invite === 'undefined') {
           return Promise.reject(new RejectError('Koden er ikke gyldig for denne gruppen'));
         } else if (invite.brukt === true) {
           return Promise.reject(new RejectError('Koden har allerede blitt brukt'));
-        } else if (users.find(u => `${u.id}` === `sherpa3:${user.sherpa_id}`)) {
+        } else if (users.find((u) => `${u.id}` === `sherpa3:${user.sherpa_id}`)) {
           return Promise.reject(new RejectError('Brukeren har allerede tilgang til denne gruppen'));
         }
 
@@ -179,50 +178,5 @@ export function acceptInvite(code, group, user) {
       .catch((err) => {
         Raven.captureException(err);
       });
-  };
-}
-
-export const REQUEST_USER = 'REQUEST_USER';
-export function requestUser() {
-  return {
-    type: REQUEST_USER,
-  };
-}
-
-export const RECEIVE_USER = 'RECEIVE_USER';
-export function receiveUser(user) {
-  return {
-    type: RECEIVE_USER,
-    user: user,
-    isAuthenticated: typeof user === 'object',
-  };
-}
-
-export function fetchUser() {
-  return (dispatch, getState) => {
-    let statusCode;
-
-    dispatch(requestUser());
-
-    const options = {
-      credentials: 'same-origin',
-      headers: {Accept: 'application/json'},
-    };
-
-    return fetch('/profil', options)
-      .then((response) => {
-        statusCode = response.status;
-
-        return response.json();
-      })
-      .then((json) => {
-        if (statusCode !== 200) {
-          dispatch(receiveUser());
-        } else {
-          dispatch(receiveUser(json));
-        }
-        return json;
-      })
-      .catch((err) => { throw new Error(err); });
   };
 }

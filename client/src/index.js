@@ -7,7 +7,7 @@ import Raven from 'raven-js';
 import 'semantic-ui-css/semantic.min.css';
 
 import store from './store.js';
-import {fetchUser} from './actions/index.js';
+import {fetchSession} from './actions/sessions.js';
 import App from './App.jsx';
 
 const appContainer = document.getElementById('app');
@@ -20,7 +20,7 @@ if (isProduction) {
   }).install();
 }
 
-store.dispatch(fetchUser());
+store.dispatch(fetchSession());
 
 const render = (Component) => {
   ReactDOM.render(

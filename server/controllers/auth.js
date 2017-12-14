@@ -4,11 +4,18 @@ const querystring = require('querystring');
 const fetch = require('isomorphic-fetch');
 const redis = require('../lib/redis');
 const {Router} = require('express');
+const turbasenAuth = require('turbasen-auth');
 
 const secrets = require('../lib/secrets');
 const raven = require('../lib/raven');
 
 const router = new Router();
+
+turbasenAuth.turbasen.configure({
+  API_KEY: secrets.NTB_API_KEY,
+  API_ENV: process.env.NTB_API_ENV || 'dev',
+  USER_AGENT: 'Asgardr',
+});
 
 let redirectUri;
 
@@ -46,6 +53,7 @@ router.get('/verifiser', (req, res, next) => { // eslint-disable-line consistent
       if (result.status !== 200) {
         throw new Error('Feil ved innlogging.');
       }
+
       return result;
     })
     .then(result => result.json())
@@ -79,11 +87,9 @@ router.get('/verifiser', (req, res, next) => { // eslint-disable-line consistent
         user.is_sudo = true;
       }
 
-      req.session.user = user.id;
-
-      return redis.hmset(user.id, 'user', JSON.stringify(user));
+      return redis.hmset(req.session.id, 'user', JSON.stringify(user));
     })
-    .then(result => redis.hmset(user.id, 'tokens', JSON.stringify(tokens)))
+    .then(result => redis.hmset(req.session.id, 'tokens', JSON.stringify(tokens)))
     .then(() => {
       const appUrl = `${process.env.APP_URL}`;
 
@@ -96,7 +102,7 @@ router.get('/verifiser', (req, res, next) => { // eslint-disable-line consistent
         user.grupper = [...json.documents];
       }
 
-      return redis.hmset(user.id, 'user', JSON.stringify(user));
+      return redis.hmset(req.session.id, 'user', JSON.stringify(user));
     })
     .then(() => {
       if (req.query.next) {
@@ -113,6 +119,20 @@ router.get('/verifiser', (req, res, next) => { // eslint-disable-line consistent
   verify.catch((err) => {
     raven.captureException(err);
   });
+});
+
+router.post('/turbasen', turbasenAuth.middleware, (req, res, next) => {
+  const user = req.turbasenAuth;
+
+  if (user) {
+    req.session.turbasen = `turbasen:${user.gruppe._id}:${user.epost}`;
+
+    redis.hmset(req.session.id, 'turbasen', JSON.stringify(user)).then(() => {
+      res.redirect('/bruker/turbasen');
+    });
+  } else {
+    res.redirect('/?error=TBAUTH-401');
+  }
 });
 
 module.exports = router;

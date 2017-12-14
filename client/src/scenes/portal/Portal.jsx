@@ -1,24 +1,21 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import queryString from 'query-string';
-import {Button, Grid, Icon, Segment} from 'semantic-ui-react';
+import {Button, Grid, Icon, Message, Segment} from 'semantic-ui-react';
 
-import {} from '../actions/index.js';
+import LoginTurbasen from '../../components/users/LoginTurbasen.jsx';
 
 class Portal extends Component {
   render() {
-    const {user} = this.props;
+    const {session} = this.props;
     const qs = queryString.parse(this.props.location.search);
+    const {user} = session.data;
 
     return (
       <div>
         {
           (() => {
-            if (user.isFetching === true) {
-              return (
-                <Segment basic loading style={{minHeight: '100vh'}}></Segment>
-              );
-            } else if (user.isAuthenticated === true) {
+            if (session.isAuthenticated === true) {
               return (
                 <Segment>
                   <Grid columns={2} relaxed>
@@ -31,7 +28,7 @@ class Portal extends Component {
                           </a>
                       </Segment>
                     </Grid.Column>
-                    {(user.data.is_admin || user.data.is_external) &&
+                    {(user.is_admin || user.is_external) &&
                       <Grid.Column>
                         <Segment basic textAlign="center">
                             <a href="https://hytte.app.dnt.no/auth/logout?next=/auth/login/dnt">
@@ -44,6 +41,12 @@ class Portal extends Component {
                     }
                   </Grid>
                 </Segment>
+              );
+            }
+
+            if (qs && qs.error && qs.error === 'TBAUTH-401') {
+              return (
+                <LoginTurbasen error={qs.error}/>
               );
             }
 
@@ -84,10 +87,10 @@ class Portal extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  user: state.user,
+  session: state.session,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Portal);

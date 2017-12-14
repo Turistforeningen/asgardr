@@ -5,12 +5,20 @@
   "main": "index.js",
   "scripts": {
     "nsp": "nsp check",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "client:start": "nodemon --watch webpack.config.js --exec \"npm run webpack:serve\"",
     "lint": "eslint --ext .js,.jsx controllers/ lib/ src/ tests/",
     "lint:watch": "esw --color --ext .js,.jsx --watch controllers/ lib/ src/ tests/",
+    "test": "jest",
+    "test:watch": "jest --watchAll",
     "webpack:prod": "webpack --env.production --env.analyze --optimize-minimize --config webpack.config.prod.js",
     "webpack:serve": "webpack-dev-server --env.development --color --config webpack.config.dev.js"
+  },
+  "jest": {
+    "setupFiles": ["./tests/setup.js"],
+    "roots": ["tests"],
+    "moduleNameMapper": {
+      "\\.(svg|css|jpg|png)$": "<rootDir>/tests/empty.js"
+    }
   },
   "author": "",
   "license": "ISC",
@@ -33,7 +41,7 @@
     "file-loader": "^0.11.2",
     "isomorphic-fetch": "^2.2.1",
     "node-sass": "^4.5.3",
-    "nsp": "^2.4.0",
+    "nsp": "^3.1.0",
     "query-string": "^5.0.0",
     "raven-js": "^3.17.0",
     "react": "^15.6.1",
@@ -52,7 +60,14 @@
     "webpack": "^3.6.0"
   },
   "devDependencies": {
+    "babel-jest": "^21.2.0",
+    "enzyme": "^3.2.0",
+    "enzyme-adapter-react-15": "^1.0.5",
+    "jest": "^21.2.1",
     "nodemon": "^1.12.1",
+    "react-addons-test-utils": "^15.6.2",
+    "react-test-renderer": "^15.6.2",
+    "redux-mock-store": "^1.3.0",
     "webpack-dev-server": "^2.8.0"
   }
 }

@@ -4,12 +4,12 @@ import {Menu} from 'semantic-ui-react';
 import dntLogo from '../assets/images/dnt-logo-circle.svg';
 import utnoLogo from '../assets/images/utno-logo-negative.svg';
 
-const Header = ({user}) => (
+const Header = ({isAuthenticated, user}) => (
   <header>
     <div className="ui fixed top inverted menu">
       <div className="ui container">
         {
-          user && user.isAuthenticated && user.data.is_admin ?
+          isAuthenticated && user.is_admin ?
             <a href="https://www.dnt.no/sherpa" className="header item logo">
               <img src={dntLogo} />
             </a>
@@ -23,9 +23,9 @@ const Header = ({user}) => (
         </a>
         <Menu.Menu position="right">
           {
-            user && user.isAuthenticated ?
+            isAuthenticated ?
               <Menu.Item link href="/logg-ut">
-                Logget inn som {`${user.data.fornavn} ${user.data.etternavn}`} – Logg ut
+                Logget inn som {`${user.fornavn} ${user.etternavn}`} – Logg ut
               </Menu.Item>
             :
               <Menu.Item link href="/logg-inn/dnt">

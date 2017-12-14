@@ -17,6 +17,7 @@ app.set('x-powered-by', false);
 
 app.use(raven.requestHandler());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(session);
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -40,20 +41,33 @@ version.promise.then((gitcommit) => {
   nunjucksEnvironment.addGlobal('gitcommit', gitcommit);
 }).catch(() => {});
 
+// TODO: If no session property is set, the session ID is reset whenever accessed
+router.use((req, res, next) => {
+  req.session.isSet = true;
+
+  return next();
+});
+
 router.use('/invitasjon', (req, res, next) => {
-  res.render('invite.html', {app: 'invite', code: req.query.kode});
+  res.render('app.html', {app: 'app', code: req.query.kode});
+});
+
+router.use('/bruker', (req, res, next) => {
+  res.render('app.html', {app: 'app'});
 });
 
 router.use('/logg-inn', require('./controllers/auth'));
 
 router.get('/logg-ut', (req, res) => {
-  req.session.destroy(() => {
-    res.redirect('/');
+  redis.del(req.session.id).then(() => {
+    req.session.destroy(() => {
+      res.redirect('/');
+    });
   });
 });
 
 router.use('/profil', requireApiAuth, (req, res, next) => {
-  redis.hgetall(req.session.user).then((data) => {
+  redis.hgetall(req.session.id).then((data) => {
     const user = JSON.parse(data.user);
 
     if (req.accepts('html')) {
@@ -65,11 +79,24 @@ router.use('/profil', requireApiAuth, (req, res, next) => {
   });
 });
 
+router.use('/session', (req, res, next) => {
+  redis.hgetall(req.session.id).then((data) => {
+    const user = data.user ? JSON.parse(data.user) : undefined;
+    const turbasen = data.turbasen ? JSON.parse(data.turbasen) : undefined;
+
+    if (req.accepts('html')) {
+      res.status(404).send();
+    } else if (req.accepts('json')) {
+      res.json({user, turbasen});
+    }
+  });
+});
+
 router.use('/api/turbasen', require('./lib/turbasen-api'));
 router.use('/api/sendgrid', require('./lib/sendgrid-api'));
 
 router.use('/', (req, res, next) => {
-  res.render('portal.html', {app: 'portal'});
+  res.render('app.html', {app: 'app'});
 });
 
 app.use(process.env.VIRTUAL_PATH, router);

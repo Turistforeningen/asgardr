@@ -33,7 +33,7 @@ function get(type, id) {
 
 function find(type, params) {
   const queryString = Object.keys(params || {})
-    .map(item => `${item}=${params[item]}`)
+    .map((item) => `${item}=${params[item]}`)
     .join('&');
 
   let statusCode;

@@ -37,7 +37,7 @@ build-assets:
         disable-sync: true
         username: $DOCKER_REGISTRY_USERNAME
         password: $DOCKER_REGISTRY_PASSWORD
-        repository: turistforeningen/asgardr
+        repository: turistforeningen/asgardr-dev
         registry: https://registry.hub.docker.com/v2
         tag: assets
   after-steps:
@@ -88,7 +88,7 @@ build-server:
         disable-sync: true
         username: $DOCKER_REGISTRY_USERNAME
         password: $DOCKER_REGISTRY_PASSWORD
-        repository: turistforeningen/asgardr
+        repository: turistforeningen/asgardr-dev
         registry: https://registry.hub.docker.com/v2
         tag: node
         working-dir: /pipeline/source/server
@@ -113,8 +113,8 @@ deploy:
         name: docker stack update
         code: |
           pip install docker-cloud
-          docker-cloud stack update asgardr --sync
-          docker-cloud stack redeploy --not-reuse-volumes asgardr --sync
+          docker-cloud stack update asgardr-dev --sync
+          docker-cloud stack redeploy --not-reuse-volumes asgardr-dev --sync
   after-steps:
     - turistforeningen/slack-notifier:
         url: $SLACK_WEBHOOK_URL

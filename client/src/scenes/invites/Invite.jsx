@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import queryString from 'query-string';
-import {Button, Dimmer, Grid, Header, Loader, Message, Segment} from 'semantic-ui-react';
+import {Button, Dimmer, Divider, Grid, Header, Loader, Message, Segment} from 'semantic-ui-react';
 import {BrowserRouter as Switch, Route} from 'react-router-dom';
 
 import {acceptInvite, fetchInvite} from '../../actions/invites.js';
@@ -17,7 +17,7 @@ class Invite extends Component {
   render() {
     const {invite, session} = this.props;
 
-    if (invite.isFetched !== true) {
+    if (invite.isFetching === true) {
       return (
         <Grid textAlign="center" style={{height: '100%'}} verticalAlign="middle">
           <Grid.Column style={{maxWidth: 450}}>

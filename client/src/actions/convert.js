@@ -157,7 +157,7 @@ export function userConvert(turbasenUser, dntUser) {
       .then(() => {
         const email = {
           to: dntUser.epost,
-          subject: `Velkommen til gruppa ${group.navn} på UT.no`,
+          subject: `Din DNT-bruker har nå tilgang til ${group.navn} på UT.no`,
           html: `<h2>Hei ${dntUser.fornavn} ${dntUser.etternavn},</h2>
             <p>Du har nå tilgang til gruppas innhold med din DNT-bruker.</p>
             <p>Neste gang kan du gå til

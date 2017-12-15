@@ -79,7 +79,7 @@ class Turbasen extends Component {
                             Hei, {session.data.turbasen.navn}
                           </Header>
                           <p>
-                            Vi har fått ny innlogging - du må oppdatere brukeren din!
+                            Vi har fått ny innlogging – du må oppdatere brukeren din!
                           </p>
                           <Segment>
                             <Header size="medium" disabled>
@@ -101,16 +101,19 @@ class Turbasen extends Component {
                             <Header size="medium">
                               <Icon circular name="user add" color="red" />
                               <Header.Content>
-                                DNT-bruker
+                                Ny bruker
                                 <Header.Subheader>
-                                  Ny innlogging
+                                  Logg inn med DNT-bruker
                                 </Header.Subheader>
                               </Header.Content>
                             </Header>
                             <p>
-                              Hvis du allerede har en kan du bruke{' '}
-                              den. Ellers kan du enkelt {' '}
-                              opprette en, helt gratis. Du trenger ikke være medlem av DNT.
+                              For å få tilgang til {conversion.group.navn}{' '}
+                              sin gruppe på UT.no må du heretter logge inn med en{' '}
+                              DNT-bruker.{' '}
+                              Hvis du allerede har en kan du bruke den.{' '}
+                              Ellers kan du enkelt opprette en,{' '}
+                              helt gratis. Du trenger ikke være medlem av DNT.
                             </p>
                             <Button
                               as="a"

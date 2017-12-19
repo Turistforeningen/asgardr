@@ -5,7 +5,7 @@ import {
   FETCH_TURBASEN_USER_REQUEST,
   FETCH_TURBASEN_USER_RESPONSE,
   FETCH_TURBASEN_USER_ERROR,
-} from '../actions/convert.js';
+} from '../actions/conversion.js';
 
 export default function convertReducer(state = {}, action) {
   switch (action.type) {

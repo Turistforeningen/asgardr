@@ -37,7 +37,7 @@ const ConvertConfirm = ({turbasenUser, dntUser, group, userConvert, errors}) => 
         size="big"
         color="red"
         fluid
-        onClick={userConvert}
+        onClick={() => { userConvert(group, turbasenUser, dntUser); }}
       >
         Bekreft
       </Button>

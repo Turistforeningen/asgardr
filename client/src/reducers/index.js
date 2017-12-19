@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
 
-import convertReducer from './convert.js';
+import conversionReducer from './conversion.js';
 import userReducer from './users.js';
 import sessionReducer from './sessions.js';
 import inviteReducer from './invites.js';
@@ -15,7 +15,7 @@ function appReducer(state = {}, action) {
 const rootReducer = combineReducers({
   app: appReducer,
   user: userReducer,
-  convert: convertReducer,
+  conversion: conversionReducer,
   session: sessionReducer,
   invite: inviteReducer,
 });

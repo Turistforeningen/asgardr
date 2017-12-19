@@ -3,8 +3,7 @@ import {connect} from 'react-redux';
 import {BrowserRouter as Switch, Route} from 'react-router-dom';
 import {Container} from 'semantic-ui-react';
 
-import Convert from './scenes/users/Convert.jsx';
-import Turbasen from './scenes/users/Turbasen.jsx';
+import Conversion from './scenes/conversion/Conversion.jsx';
 import Portal from './scenes/portal/Portal.jsx';
 import Invite from './scenes/invite/Invite.jsx';
 
@@ -29,8 +28,7 @@ class App extends Component {
             />
               <Container>
                 <Route exact path="/" component={Portal} />
-                <Route exact path="/bruker/turbasen" component={Turbasen} />
-                <Route exact path="/bruker/konverter" component={Convert} />
+                <Route path="/bruker/konverter" component={Conversion} />
                 <Route path="/invitasjon" component={Invite} />
               </Container>
           </div>

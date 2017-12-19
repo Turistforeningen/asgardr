@@ -95,10 +95,8 @@ export function userConvertError(err) {
   };
 }
 
-export function userConvert(turbasenUser, dntUser) {
+export function userConvert(group, turbasenUser, dntUser) {
   // TODO: Validate turbasenUser and dntUser
-  const group = turbasenUser.gruppe;
-
   let userConverted;
 
   return (dispatch, getState) => {

@@ -1,7 +1,7 @@
 version: '2'
 services:
   client:
-    image: node:7.8.0-alpine
+    image: node:8.9.0-alpine
     network_mode: 'bridge'
     ports:
       - '3000'
@@ -26,7 +26,7 @@ services:
       options:
         max-size: "10k"
   server:
-    image: node:7.8.0-alpine
+    image: node:8.9.0-alpine
     network_mode: 'bridge'
     links:
       - redis

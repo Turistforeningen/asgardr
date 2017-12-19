@@ -128,7 +128,7 @@ router.post('/turbasen', turbasenAuth.middleware, (req, res, next) => {
     req.session.turbasen = `turbasen:${user.gruppe._id}:${user.epost}`;
 
     redis.hmset(req.session.id, 'turbasen', JSON.stringify(user)).then(() => {
-      res.redirect('/bruker/turbasen');
+      res.redirect('/bruker/konverter/turbasen');
     });
   } else {
     res.redirect('/?error=TBAUTH-401');

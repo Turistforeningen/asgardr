@@ -4,13 +4,6 @@ import turbasen from '../apis/turbasen.js';
 import sendgrid from '../apis/sendgrid.js';
 import RejectError from '../lib/reject-error.js';
 
-export const SET_MESSAGE = 'SET_MESSAGE';
-export function setMessage() {
-  return {
-    type: SET_MESSAGE,
-  };
-}
-
 export const INVITE_FETCH_REQUEST = 'INVITE_FETCH_REQUEST';
 export function inviteFetchRequest(code) {
   return {
@@ -37,22 +30,23 @@ export function inviteFetchError(error) {
 
 export function fetchInvite(code) {
   return (dispatch, getState) => {
+    if (typeof code === 'undefined' || code.length === 0) {
+      return dispatch(inviteFetchError(new RejectError('Kode mangler.')));
+    }
+
     dispatch(inviteFetchRequest(code));
 
     return turbasen
       .find('grupper', {'privat.invitasjoner.kode': code, fields: 'privat'})
       .then((json) => {
-        // NOTE: Would check code before request, if error was caught
-        if (typeof code === 'undefined' || code.length === 0) {
-          return Promise.reject(new RejectError('Kode mangler.'));
-        } else if (json.documents.length === 0) {
+        if (json.documents.length === 0) {
           return Promise.reject(new RejectError(
             `Fant ingen invitasjon med denne koden. Kontroller at du har
             fulgt lenken du har fått på epost.`
           ));
         } else if (json.documents.length > 1) {
           return Promise.reject(new RejectError(
-            'Fant flere invitasjoner med samme kode. Ta kontakt for å finne rett invitasjon.'
+            'Fant flere invitasjoner med oppgitt kode. Ta kontakt for å finne rett invitasjon.'
           ));
         }
 
@@ -117,7 +111,7 @@ export function acceptInvite(code, group, user) {
         } else if (invite.brukt === true) {
           return Promise.reject(new RejectError('Koden har allerede blitt brukt'));
         } else if (users.find((u) => `${u.id}` === `sherpa3:${user.sherpa_id}`)) {
-          return Promise.reject(new RejectError('Brukeren har allerede tilgang til denne gruppen'));
+          return Promise.reject(new RejectError('Du har allerede tilgang til denne gruppa'));
         }
 
         json.privat.invitasjoner = invites.map((invitasjon) => {

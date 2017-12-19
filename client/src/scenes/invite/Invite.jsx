@@ -6,7 +6,7 @@ import {BrowserRouter as Switch, Route} from 'react-router-dom';
 
 import {acceptInvite, fetchInvite} from '../../actions/invites.js';
 
-import InviteIndex from './Index.jsx';
+import Show from './Show.jsx';
 import Confirm from './Confirm.jsx';
 
 class Invite extends Component {
@@ -47,7 +47,7 @@ class Invite extends Component {
         <Switch basename="/invitasjon">
           <div>
             <Route exact path="/" render={(props) => (
-              <InviteIndex {...props}
+              <Show {...props}
                 invite={invite}
                 acceptInvite={this.props.acceptInvite}
                 isAuthenticated={session.isAuthenticated}

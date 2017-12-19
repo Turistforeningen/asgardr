@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Grid, Header, Message, Segment} from 'semantic-ui-react';
 
-const InviteIndex = ({invite, isAuthenticated, user}) => (
+const Show = ({invite, isAuthenticated, user}) => (
   <Grid textAlign="center" style={{height: '100%'}} verticalAlign="middle">
     <Grid.Column style={{maxWidth: 450}}>
       <Segment padded stacked style={{minHeight: '120px'}}>
@@ -61,4 +61,4 @@ const InviteIndex = ({invite, isAuthenticated, user}) => (
   </Grid>
 );
 
-export default InviteIndex;
+export default Show;

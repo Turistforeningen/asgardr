@@ -8,9 +8,9 @@ const LoginTurbasen = ({error}) => (
         {
           error && error === 'TBAUTH-401' &&
           <Message error>
-            Du har oppgitt feil epost eller passord. Prøv igjen, og ta {' '}
-            kontakt med oss dersom du har glemt e-post eller passord.
-          </Message>
+            Du har oppgitt feil epost eller passord. Prøv igjen, og ta{' '}
+            kontakt med oss på <a href="mailto:post@ut.no">post@ut.no</a>{' '}
+            dersom du har glemt e-post eller passord.  </Message>
         }
         <Form size="large" action="/logg-inn/turbasen" method="POST">
           <Form.Input

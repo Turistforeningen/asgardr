@@ -6,8 +6,7 @@ import {Container} from 'semantic-ui-react';
 import Convert from './scenes/users/Convert.jsx';
 import Turbasen from './scenes/users/Turbasen.jsx';
 import Portal from './scenes/portal/Portal.jsx';
-
-import Invite from './scenes/invites/Invite.jsx';
+import Invite from './scenes/invite/Invite.jsx';
 
 import Header from './components/Header.jsx';
 
@@ -24,7 +23,10 @@ class App extends Component {
           null
           :
           <div>
-            <Header isAuthenticated={session.isAuthenticated} user={session.data.user} />
+            <Header
+              isAuthenticated={session.isAuthenticated}
+              user={session.data.user}
+            />
               <Container>
                 <Route exact path="/" component={Portal} />
                 <Route exact path="/bruker/turbasen" component={Turbasen} />

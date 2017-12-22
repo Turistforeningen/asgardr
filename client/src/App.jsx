@@ -26,13 +26,13 @@ class App extends Component {
               isAuthenticated={session.isAuthenticated}
               user={session.data.user}
             />
-              <Container>
-                <Route exact path="/" component={Portal} />
-                <Route path="/bruker/konverter" component={Conversion} />
-                <Route path="/invitasjon" component={Invite} />
-              </Container>
+            <Container>
+              <Route exact path="/" component={Portal} />
+              <Route path="/bruker/konverter" component={Conversion} />
+              <Route path="/invitasjon" component={Invite} />
+            </Container>
           </div>
-        }
+          }
       </Switch>
     );
   }

@@ -34,6 +34,6 @@ const render = (Component) => {
 render(App);
 
 if (module.hot) {
-  module.hot.accept();
+  module.hot.accept('./App.jsx', () => { render(App) })
 }
 

@@ -1,5 +1,5 @@
 box:
-  id: node:8.9.0-alpine
+  id: node:7.8.0-alpine
   cmd: /bin/sh
 
 build-assets:

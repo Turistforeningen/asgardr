@@ -5,6 +5,7 @@ import {Container} from 'semantic-ui-react';
 
 import Conversion from './scenes/conversion/Conversion.jsx';
 import Portal from './scenes/portal/Portal.jsx';
+import Groups from './scenes/groups/Groups.jsx';
 import Invite from './scenes/invite/Invite.jsx';
 
 import Header from './components/Header.jsx';
@@ -29,6 +30,7 @@ class App extends Component {
             <Container>
               <Route exact path="/" component={Portal} />
               <Route path="/bruker/konverter" component={Conversion} />
+              <Route path="/grupper" component={Groups} />
               <Route path="/invitasjon" component={Invite} />
             </Container>
           </div>

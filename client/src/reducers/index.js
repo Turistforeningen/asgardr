@@ -4,6 +4,7 @@ import conversionReducer from './conversion.js';
 import userReducer from './users.js';
 import sessionReducer from './sessions.js';
 import inviteReducer from './invites.js';
+import groupsReducer from './groups.js';
 
 function appReducer(state = {}, action) {
   switch (action.type) {
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   conversion: conversionReducer,
   session: sessionReducer,
   invite: inviteReducer,
+  groups: groupsReducer,
 });
 
 export default rootReducer;

@@ -26,15 +26,17 @@ router.all('*', (req, res, next) => {
 
   fetch(url, options)
     .then((result) => {
-      if (result.status >= 400) {
-        return Promise.reject(new Error('Request to Nasjonal Turbase failed'));
-      }
+      statusCode = result.status;
 
-      res.status(result.status);
+      res.status(statusCode);
 
       return result.json();
     })
     .then((json) => { // eslint-disable-line consistent-return
+      if (statusCode >= 400) {
+        return res.json(json);
+      }
+
       // TODO(Håvard): This part needs a cleanup!
       if (!req.query.skip && json.count < json.total && Number(req.query.limit) > json.count) {
         // TODO(Håvard): Remaining should be based on limit – not total
@@ -70,7 +72,7 @@ router.all('*', (req, res, next) => {
     })
     .catch((err) => {
       console.error(err); // eslint-disable-line
-      res.status(statusCode).json({message: 'An error occurred.'});
+      res.json({message: 'An Error Occured'});
     });
 });
 

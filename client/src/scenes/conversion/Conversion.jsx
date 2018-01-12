@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import queryString from 'query-string';
 import {Button, Dimmer, Divider, Grid, Header, Loader, Message, Segment} from 'semantic-ui-react';
 import {BrowserRouter as Switch, Route} from 'react-router-dom';
 
@@ -50,7 +49,7 @@ class Conversion extends Component {
       return (
         <Segment basic>
           <Header as="h2">Feil</Header>
-          <Message error>{invite.error.message}</Message>
+          <Message error>{conversion.error.message}</Message>
           <Header as="h3">Veier videre</Header>
           <Button primary fluid>Logg inn</Button>
           <Divider horizontal>Eller</Divider>
@@ -97,7 +96,6 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(fetchTurbasenUser(email, group));
   },
   userConvert: function dispatchUserConvert(group, turbasenUser, dntUser) {
-    console.log('abcddd');
     dispatch(userConvert(group, turbasenUser, dntUser));
   },
 });

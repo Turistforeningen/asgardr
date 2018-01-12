@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {BrowserRouter as Switch, Route} from 'react-router-dom';
+import {BrowserRouter as Switch, Redirect, Route} from 'react-router-dom';
 import {Container} from 'semantic-ui-react';
 
 import Conversion from './scenes/conversion/Conversion.jsx';
@@ -11,6 +11,18 @@ import Invite from './scenes/invite/Invite.jsx';
 import Header from './components/Header.jsx';
 
 require('./styles/app.scss');
+
+const PrivateRoute = ({component: PrivateComponent, isAuthenticated, ...rest}) => (
+  <Route
+    {...rest}
+    render={(props) => (
+      isAuthenticated ?
+      <PrivateComponent {...props}/>
+      :
+      <Redirect to={{pathname: '/', state: {from: props.location}}}/>
+    )}
+  />
+);
 
 class App extends Component {
   render() {
@@ -30,7 +42,11 @@ class App extends Component {
             <Container>
               <Route exact path="/" component={Portal} />
               <Route path="/bruker/konverter" component={Conversion} />
-              <Route path="/grupper" component={Groups} />
+              <PrivateRoute
+                path="/grupper"
+                isAuthenticated={session.isAuthenticated}
+                component={Groups}
+              />
               <Route path="/invitasjon" component={Invite} />
             </Container>
           </div>

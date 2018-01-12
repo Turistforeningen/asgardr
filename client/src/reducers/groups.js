@@ -3,13 +3,16 @@ import validators from '../validators/index.js';
 import {
   CREATE_GROUP,
   SET_FIELD,
+  SET_VALIDATION,
   SAVE_GROUP_REQUEST,
   SAVE_GROUP_SUCCESS,
   SAVE_GROUP_ERROR,
 } from '../actions/groups.js';
 
 
-export default function groupReducer(state = {data: {}, touched: {}, errors: {}}, action) {
+const defaultState = {data: {}, touched: {}, errors: {}, isValidated: false};
+
+export default function groupReducer(state = defaultState, action) {
   switch (action.type) {
     case CREATE_GROUP:
       return {
@@ -33,14 +36,40 @@ export default function groupReducer(state = {data: {}, touched: {}, errors: {}}
           [action.key]: true,
         },
       };
+
+    case SET_VALIDATION:
+      return {
+        ...state,
+        errors: validators.group({
+          ...state.data,
+          [action.key]: action.value,
+        }).errors,
+        warnings: validators.group({
+          ...state.data,
+          [action.key]: action.value,
+        }).warnings,
+        isValidated: true,
+      };
+
     case SAVE_GROUP_REQUEST:
-      return {...state};
+      return {
+        ...state,
+        isSaving: true,
+      };
 
     case SAVE_GROUP_SUCCESS:
-      return {...state};
+      return {
+        ...state,
+        isSaving: false,
+        isSaved: true,
+      };
 
     case SAVE_GROUP_ERROR:
-      return {...state};
+      return {
+        ...state,
+        isSaving: false,
+        isSaved: false,
+      };
 
     default:
       return {...state};

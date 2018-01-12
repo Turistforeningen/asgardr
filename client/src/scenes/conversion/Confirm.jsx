@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Grid} from 'semantic-ui-react';
 
 import ConvertConfirm from '../../components/users/ConvertConfirm.jsx';

@@ -7,6 +7,7 @@ import LoginTurbasen from '../../components/users/LoginTurbasen.jsx';
 
 class Portal extends Component {
   render() {
+    const {from} = this.props.location.state || {from: {pathname: '/'}};
     const {session} = this.props;
     const qs = queryString.parse(this.props.location.search);
     const {user} = session.data;
@@ -70,7 +71,7 @@ class Portal extends Component {
                 }
                 <Button
                   as="a"
-                  href="/logg-inn/dnt"
+                  href={`/logg-inn/dnt?next=${from.pathname}`}
                   icon="user"
                   labelPosition="left"
                   content="Logg inn"

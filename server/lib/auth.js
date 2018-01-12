@@ -2,8 +2,8 @@
 
 const redis = require('./redis');
 
-exports.apiMiddleware = (req, res, next) => {
-  return redis.hgetall(req.session.id)
+exports.apiMiddleware = (req, res, next) => (
+  redis.hgetall(req.session.id)
     .then((data) => {
       const user = JSON.parse(data.user);
 
@@ -13,11 +13,11 @@ exports.apiMiddleware = (req, res, next) => {
 
       return res.status(401).json({code: 401, message: 'Who are you?'});
     })
-    .catch(err => res.status(401).json({code: 401, message: 'Who are you?'}));
-};
+    .catch(err => res.status(401).json({code: 401, message: 'Who are you?'}))
+);
 
-exports.middleware = (req, res, next) => {
-  return redis.hgetall(req.session.id)
+exports.middleware = (req, res, next) => (
+  redis.hgetall(req.session.id)
     .then((data) => { // eslint-disable-line consistent-return
       const user = JSON.parse(data.user);
 
@@ -30,5 +30,5 @@ exports.middleware = (req, res, next) => {
     })
     .catch((err) => { // eslint-disable-line arrow-body-style
       return res.redirect(`/?next=${req.originalUrl}`);
-    });
-};
+    })
+);

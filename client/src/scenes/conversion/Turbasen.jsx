@@ -8,7 +8,7 @@ const Turbasen = ({conversion}) => (
         conversion.isConverted ? // eslint-disable-line no-nested-ternary
           <Segment padded stacked textAlign="left">
             <Header>
-              Hei, {session.data.turbasen.navn}
+              Hei, {conversion.from.navn}
             </Header>
             <p>
               Denne innloggingen er ikke lenger i bruk. Du må logge inn {' '}

@@ -2,7 +2,18 @@ import React, {Component} from 'react';
 import {autobind} from 'core-decorators';
 import {connect} from 'react-redux';
 
-import {Button, Dropdown, Form, Grid, Header, Label, List, Message, Segment, TextArea} from 'semantic-ui-react';
+import {
+  Button,
+  Dropdown,
+  Form,
+  Grid,
+  Header,
+  Label,
+  List,
+  Message,
+  Segment,
+  TextArea
+} from 'semantic-ui-react';
 
 import {createGroup, setField, saveGroup} from '../../../actions/groups.js';
 

@@ -61,9 +61,10 @@ export function saveGroupRequest() {
 }
 
 export const SAVE_GROUP_SUCCESS = 'SAVE_GROUP_SUCCESS';
-export function saveGroupSuccess() {
+export function saveGroupSuccess(result) {
   return {
     type: SAVE_GROUP_SUCCESS,
+    document: result.document,
   };
 }
 
@@ -84,7 +85,9 @@ export function saveGroup(id, group) {
         return turbasen
           .save('grupper', id, group)
           .then((result) => {
-            dispatch(saveGroupSuccess());
+            dispatch(saveGroupSuccess({document: result.document}));
+
+            return result;
           })
           .catch((err) => {
             console.error(err); // eslint-disable-line

@@ -60,11 +60,26 @@ router.all('*', (req, res, next) => {
           .then(json2 => json2.map(json3 => json3.documents))
           .then((json2) => {
             const docs = json.documents.concat(...json2);
-            return res.json({
-              documents: docs,
-              count: docs.length,
-              total: docs.length,
-            });
+
+            if (req.query.expand) {
+              return Promise.all(docs.map(((d) => (
+                fetch(`${process.env.NTB_API_URL}${path}/${d._id}?expand=${encodeURIComponent(req.query.expand)}`, options)
+                  .then((res4 => { return res4.json(); }))
+              )))).then((allExpanded) => {
+                return res.json({
+                  documents: allExpanded,
+                  count: docs.length,
+                  total: docs.length,
+                });
+              });
+            } else {
+              return res.json({
+                documents: docs,
+                count: docs.length,
+                total: docs.length,
+              });
+            }
+
           });
       } else {
         return res.json(json);

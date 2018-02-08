@@ -2,7 +2,18 @@ import React, {Component} from 'react';
 import {autobind} from 'core-decorators';
 import {connect} from 'react-redux';
 
-import {Button, Dropdown, Form, Grid, Header, Label, List, Message, Segment, TextArea} from 'semantic-ui-react';
+import {
+  Button,
+  Dropdown,
+  Form,
+  Grid,
+  Header,
+  Label,
+  List,
+  Message,
+  Segment,
+  TextArea,
+} from 'semantic-ui-react';
 
 import {createGroup, setField, saveGroup} from '../../../actions/groups.js';
 
@@ -112,7 +123,7 @@ class Registration extends Component {
               Turene blir inntegnet på oppdaterte kart fra Statens kartverk
             </List.Item>
             <List.Item>
-                Det koster ingenting å bli innholdspartner på UT.no.
+              Det koster ingenting å bli innholdspartner på UT.no.
             </List.Item>
           </List>
         </Grid.Column>
@@ -121,7 +132,23 @@ class Registration extends Component {
             {
               this.props.group.isSaved
               ?
-              <Message>Takk for registreringen din!</Message>
+              <Message>
+                <h3>
+                  Takk for din registrering!
+                </h3>
+                <p>
+                  Du kan nå opprette turforslag eller annet innhold,{' '}
+                 og knytte dette til gruppa.
+                </p>
+                <p>
+                  Under{' '}
+                  <a href={`https://tur.app.dnt.no/grupper/${group.data.id}`}>
+                    redigering av gruppa
+                  </a>{' '}
+                  kan du invitere flere brukere, og legge inn info som{' '}
+                  blir synlig på UT.no.
+                </p>
+              </Message>
               :
               <Form size="large">
                 <Form.Field

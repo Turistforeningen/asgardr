@@ -60,6 +60,7 @@ export default function groupReducer(state = defaultState, action) {
     case SAVE_GROUP_SUCCESS:
       return {
         ...state,
+        data: {...state.data, id: action.document._id},
         isSaving: false,
         isSaved: true,
       };

@@ -132,7 +132,23 @@ class Registration extends Component {
             {
               this.props.group.isSaved
               ?
-              <Message>Takk for registreringen din!</Message>
+              <Message>
+                <h3>
+                  Takk for din registrering!
+                </h3>
+                <p>
+                  Du kan nå opprette turforslag eller annet innhold,{' '}
+                 og knytte dette til gruppa.
+                </p>
+                <p>
+                  Under{' '}
+                  <a href={`https://tur.app.dnt.no/grupper/${group.data.id}`}>
+                    redigering av gruppa
+                  </a>{' '}
+                  kan du invitere flere brukere, og legge inn info som{' '}
+                  blir synlig på UT.no.
+                </p>
+              </Message>
               :
               <Form size="large">
                 <Form.Field

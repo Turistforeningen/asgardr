@@ -12,7 +12,7 @@ import {
   List,
   Message,
   Segment,
-  TextArea
+  TextArea,
 } from 'semantic-ui-react';
 
 import {createGroup, setField, saveGroup} from '../../../actions/groups.js';
@@ -123,7 +123,7 @@ class Registration extends Component {
               Turene blir inntegnet på oppdaterte kart fra Statens kartverk
             </List.Item>
             <List.Item>
-                Det koster ingenting å bli innholdspartner på UT.no.
+              Det koster ingenting å bli innholdspartner på UT.no.
             </List.Item>
           </List>
         </Grid.Column>

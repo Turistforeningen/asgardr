@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch';
+import Raven from 'raven-js';
 
 const baseUri = '/api/sendgrid';
 const baseOptions = {
@@ -10,6 +11,7 @@ const baseOptions = {
 };
 
 function send({from, to, subject, html}) {
+  let statusCode
   const options = {
     ...baseOptions,
     method: 'POST',
@@ -22,8 +24,23 @@ function send({from, to, subject, html}) {
   };
 
   return fetch(`${baseUri}/send`, options)
-    .then(() => (undefined))
-    .catch((err) => { throw err; });
+    .then((result) => {
+      statusCode = result.status;
+
+      return result.json();
+    })
+    .then((json) => {
+      if (statusCode >= 400) {
+        throw new Error(json.message || 'Sendgrid request failed');
+      }
+
+      return json;
+    })
+    .catch((err) => {
+      Raven.captureException(err);
+
+      throw err;
+    });
 }
 
 const sendgrid = {

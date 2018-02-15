@@ -15,7 +15,11 @@ import {
   TextArea,
 } from 'semantic-ui-react';
 
-import {createGroup, setField, saveGroup} from '../../../actions/groups.js';
+import {
+  createGroup,
+  setField,
+  registerGroup,
+} from '../../../actions/groups.js';
 
 class Registration extends Component {
   constructor() {
@@ -64,10 +68,10 @@ class Registration extends Component {
   }
 
   @autobind
-  saveGroup() {
+  sendRegistration() {
     const {data} = this.props.group;
 
-    this.props.saveGroup({
+    this.props.registerGroup({
       navn: data.name,
       beskrivelse: data.description,
       privat: {
@@ -138,7 +142,7 @@ class Registration extends Component {
                 </h3>
                 <p>
                   Du kan nå opprette turforslag eller annet innhold,{' '}
-                 og knytte dette til gruppa.
+                  og knytte dette til {group.data.name || 'gruppa'}.
                 </p>
                 <p>
                   Under{' '}
@@ -238,7 +242,7 @@ class Registration extends Component {
                         type="button"
                         color="blue"
                         size="large"
-                        onClick={this.saveGroup}
+                        onClick={this.sendRegistration}
                       >
                         Registrer gruppe
                       </Button>
@@ -267,8 +271,8 @@ const mapDispatchToProps = (dispatch) => ({
   setField: function dispatchSetField(key, value) {
     dispatch(setField(key, value));
   },
-  saveGroup: function dispatchSaveGroup(group) {
-    return dispatch(saveGroup(null, group));
+  registerGroup: function dispatchRegisterGroup(group) {
+    return dispatch(registerGroup(group));
   },
 });
 

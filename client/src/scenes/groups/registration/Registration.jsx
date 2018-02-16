@@ -98,36 +98,48 @@ class Registration extends Component {
     return (
       <Grid columns={2} relaxed>
         <Grid.Column>
-          <Header size="large">Bli innholdspartner</Header>
+          <Header size="large">Bli innholdspartner på UT.no</Header>
           <p>
-            Er du med i en forening eller organisasjon som tilrettelegger{' '}
-            for friluftsliv? Nå kan dere bli innholdspartnere på UT.no.
-
+            Er du med i en forening eller organisasjon som merker{' '}
+            turstier? Eller jobber du i en kommune med ansvar for{' '}
+            å synliggjøre turmulighetene i nærområdene? Driver du{' '}
+            ei turisthytte eller et annet overnattingssted - på{' '}
+            fjellet i skogen eller ved sjøen - som er åpent og{' '}
+            tilgjengelige for alle?
           </p>
           <p>
-            Har dere merket turstier eller kanskje dere kjenner spesielt {' '}
-            godt til turtilbudet i nærområdet deres?
+            Da kan du bli innholdspartner på UT.no og publisere{' '}
+            turforslag eller informasjon om hytta.{' '}
+            <strong>Det er helt gratis - og lett å komme i gang</strong>:
           </p>
-          <p>Det er lett å komme i gang. Dere får tilgang til UT.no sine{' '}
+          <p>
+            Det er lett å komme i gang. Dere får tilgang til UT.no sine{' '}
             systemer hvor dere kan legge inn og vedlikeholde turforslag og{' '}
             hytter, resten ordner vi:
           </p>
 
           <List bulleted>
             <List.Item>
-              Turene deres publiseres på UT.no og i UTappen umiddelbart
+              Opprett ei gruppe ved å registrere navn, type og{' '}
+              beskrivelse av organisasjonen
             </List.Item>
             <List.Item>
-              Turene blir søkbare og lett å finne på UT.no og Google
+              På de neste stegene kan du legge til mer informasjon{' '}
+              (kontaktopplysninger, logo, lenker osv), samt legge{' '}
+              til eventuelle andre brukere som skal ha tilgang til{' '}
+              gruppa
             </List.Item>
             <List.Item>
-              Turene blir publisert med navn og logo på foreningen din
+              Gruppa må bli godkjent av en administrator før den{' '}
+              blir synlig på UT.no, men du kan umiddelbart begynne{' '}
+              å legge ut turforslag eller hytter
             </List.Item>
             <List.Item>
-              Turene blir inntegnet på oppdaterte kart fra Statens kartverk
+              Turene og hyttene blir publisert på UT.no og i UT-appen
             </List.Item>
             <List.Item>
-              Det koster ingenting å bli innholdspartner på UT.no.
+              Turene og hyttene blir publisert med navn og logo på{' '}
+              organisasjonen din
             </List.Item>
           </List>
         </Grid.Column>

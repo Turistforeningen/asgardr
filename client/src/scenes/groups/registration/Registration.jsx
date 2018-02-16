@@ -182,12 +182,18 @@ class Registration extends Component {
                     fluid
                     selection
                     options={[
-                      'Turlag',
-                      'Idrettslag',
-                      'Friluftsråd',
-                      'Reiselivsselskap',
                       'Kommune',
                       'Fylkeskommune',
+                      'Friluftsråd',
+                      'Turlag',
+                      'Turgruppe',
+                      'Idrettslag',
+                      'Interesseorganisasjon',
+                      'Velforening',
+                      'Turistinformasjon',
+                      'Destinasjonsselskap',
+                      'Bedrift',
+                      'Annet',
                     ].map((item) => ({text: item, value: item}))}
                     value={this.state.type}
                     onChange={this.handleTypeChange}

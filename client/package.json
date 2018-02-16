@@ -72,6 +72,6 @@
     "webpack-dev-server": "^2.8.0"
   },
   "peerDependencies": {
-    "hoek": "4.2.1"
+    "hoek": "5.0.2"
   }
 }

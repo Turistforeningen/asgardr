@@ -147,7 +147,7 @@ class Registration extends Component {
                 <p>
                   Under{' '}
                   <a href={`https://tur.app.dnt.no/grupper/${group.data.id}`}>
-                    redigering av gruppa
+                    mine grupper
                   </a>{' '}
                   kan du invitere flere brukere, og legge inn info som{' '}
                   blir synlig på UT.no.

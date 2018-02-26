@@ -7,7 +7,7 @@
     "nsp": "nsp check",
     "client:start": "nodemon --watch webpack.config.js --exec \"npm run webpack:serve\"",
     "lint": "eslint --ext .js,.jsx controllers/ lib/ src/ tests/",
-    "lint:watch": "esw --color --ext .js,.jsx --watch controllers/ lib/ src/ tests/",
+    "lint:watch": "esw --color --ext .js,.jsx --watch controllers/ lib/ src/",
     "test": "jest",
     "test:watch": "jest --watchAll",
     "webpack:prod": "webpack --env.production --env.analyze --optimize-minimize --config webpack.config.prod.js",

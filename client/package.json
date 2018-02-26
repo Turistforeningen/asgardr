@@ -70,8 +70,5 @@
     "react-test-renderer": "^15.6.2",
     "redux-mock-store": "^1.3.0",
     "webpack-dev-server": "^2.8.0"
-  },
-  "peerDependencies": {
-    "hoek": "5.0.2"
   }
 }

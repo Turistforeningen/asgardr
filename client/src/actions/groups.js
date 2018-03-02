@@ -116,7 +116,8 @@ export function registerGroup(group) {
           subject: `${group.navn} er nå registrert på UT.no`,
           html: `<h2>Hei ${user.navn},</h2>
             <p>
-              Du kan nå opprette turforslag eller annet innhold.
+              Du kan nå <a href="https://tur.app.dnt.no">opprette turforslag</a>
+              eller annet innhold.
             </p>
             <p>
               Under

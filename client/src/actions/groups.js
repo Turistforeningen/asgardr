@@ -109,11 +109,10 @@ export function registerGroup(group) {
   return (dispatch, getState) => (
     dispatch(saveGroup(undefined, group))
       .then((result) => {
-        console.log('tries to send');
         const user = group.privat.brukere[0];
         const email = {
-          // to: user.epost,
-          // cc: 'post@ut.no',
+          to: user.epost,
+          cc: 'post@ut.no',
           subject: `${group.navn} er nå registrert på UT.no`,
           html: `<h2>Hei ${user.navn},</h2>
             <p>

@@ -116,8 +116,7 @@ export function registerGroup(group) {
           subject: `${group.navn} er nå registrert på UT.no`,
           html: `<h2>Hei ${user.navn},</h2>
             <p>
-              Du kan nå opprette turforslag eller annet innhold,
-              og knytte dette til {group.data.name || 'gruppa'}.
+              Du kan nå opprette turforslag eller annet innhold.
             </p>
             <p>
               Under

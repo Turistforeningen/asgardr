@@ -10,13 +10,14 @@ const baseOptions = {
   },
 };
 
-function send({from, to, subject, html}) {
+function send({from, to, cc, subject, html}) {
   let statusCode
   const options = {
     ...baseOptions,
     method: 'POST',
     body: JSON.stringify({
       to: to,
+      cc: cc || '',
       from: from || 'UT.no / Den Norske Turistforening <ut@dnt.no>',
       subject: subject,
       html: html,

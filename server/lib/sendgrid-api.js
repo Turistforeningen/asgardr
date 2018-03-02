@@ -12,6 +12,7 @@ const router = new Router();
 router.post('/send', (req, res, next) => {
   const email = {
     to: req.body.to,
+    cc: req.body.cc,
     from: req.body.from,
     subject: req.body.subject,
     html: req.body.html,

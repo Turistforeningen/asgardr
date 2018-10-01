@@ -78,6 +78,10 @@ class Portal extends Component {
                   color="grey"
                   size="huge"
                 />
+                <p style={{fontSize: '1.4em', marginTop: '20px'}}>
+                  Problemer med å logge inn? Ta kontakt med oss på{' '}
+                  <a href="mailto:hjelp@dnt.no">hjelp@dnt.no</a>.
+                </p>
               </Segment>
             );
           })()

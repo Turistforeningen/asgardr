@@ -5,7 +5,7 @@ build-assets:
     - script:
         name: export tag environment variable
         code: |
-          export BUILD_TAG=${WERCKER_GIT_COMMIT:0:9}
+          export BUILD_TAG=assets-${WERCKER_GIT_COMMIT:0:9}
           echo "build tag is $BUILD_TAG"
           echo $BUILD_TAG > .build-tag
           echo "exported as environment variable and to .build-tag"
@@ -34,7 +34,6 @@ build-assets:
         code: |
           cp -a -v ./build /assets
     - internal/docker-push:
-        image-name: asgardr-assets
         username: $DOCKER_REGISTRY_USERNAME
         password: $DOCKER_REGISTRY_PASSWORD
         repository: turistforeningen/asgardr
@@ -50,7 +49,7 @@ build-server:
     - script:
         name: export tag environment variable
         code: |
-          export BUILD_TAG=${WERCKER_GIT_COMMIT:0:9}
+          export BUILD_TAG=server-${WERCKER_GIT_COMMIT:0:9}
           echo "build tag is $BUILD_TAG"
     - script:
         name: echo nodejs information
@@ -80,7 +79,6 @@ build-server:
           echo "writing $WERCKER_GIT_COMMIT to .gitcommit"
           echo $WERCKER_GIT_COMMIT > .gitcommit
     - internal/docker-push:
-        image-name: asgardr-server
         username: $DOCKER_REGISTRY_USERNAME
         password: $DOCKER_REGISTRY_PASSWORD
         repository: turistforeningen/asgardr

@@ -1,6 +1,4 @@
-box:
-  id: node:7.8.0-alpine
-  cmd: /bin/sh
+box: node:7.8.0
 
 build-assets:
   steps:
@@ -9,6 +7,8 @@ build-assets:
         code: |
           export BUILD_TAG=${WERCKER_GIT_COMMIT:0:9}
           echo "build tag is $BUILD_TAG"
+          echo $BUILD_TAG > .build-tag
+          echo "exported as environment variable and to .build-tag"
     - script:
         name: export environment
         code: |
@@ -34,12 +34,12 @@ build-assets:
         code: |
           cp -a -v ./build /assets
     - internal/docker-push:
-        disable-sync: true
+        image-name: asgardr-assets
         username: $DOCKER_REGISTRY_USERNAME
         password: $DOCKER_REGISTRY_PASSWORD
         repository: turistforeningen/asgardr
         registry: https://registry.hub.docker.com/v2
-        tag: assets
+        tag: $BUILD_TAG
   after-steps:
     - turistforeningen/slack-pipeline-notifier:
         url: $SLACK_WEBHOOK_URL
@@ -80,37 +80,14 @@ build-server:
           echo "writing $WERCKER_GIT_COMMIT to .gitcommit"
           echo $WERCKER_GIT_COMMIT > .gitcommit
     - internal/docker-push:
-        disable-sync: true
+        image-name: asgardr-server
         username: $DOCKER_REGISTRY_USERNAME
         password: $DOCKER_REGISTRY_PASSWORD
         repository: turistforeningen/asgardr
         registry: https://registry.hub.docker.com/v2
-        tag: node
+        tag: $BUILD_TAG
         working-dir: /pipeline/source/server
   after-steps:
     - turistforeningen/slack-notifier:
         url: $SLACK_WEBHOOK_URL
         pipeline: build-server
-
-deploy:
-  box:
-    id: alpine:3.4
-    cmd: /bin/sh
-  steps:
-    - script:
-        name: install tools
-        code: |
-          apk update
-          apk add python py-pip curl
-          # docker-cloud + requests 2.14 gives error "get_environ_proxies() takes exactly 2 arguments (1 given)"
-          pip install docker-cloud "requests==2.13.0"
-    - script:
-        name: docker stack update
-        code: |
-          pip install docker-cloud
-          docker-cloud stack update asgardr --sync
-          docker-cloud stack redeploy --not-reuse-volumes asgardr --sync
-  after-steps:
-    - turistforeningen/slack-notifier:
-        url: $SLACK_WEBHOOK_URL
-        pipeline: deploy

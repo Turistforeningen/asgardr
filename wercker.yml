@@ -68,11 +68,6 @@ build-server:
         code: |
           HOME=$YARN_CACHE yarn
     - script:
-        name: node security project
-        cwd: server/
-        code: |
-          npm run nsp
-    - script:
         name: write tag file
         cwd: server/
         code: |

@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "nsp": "nsp check",
     "client:start": "nodemon --watch webpack.config.js --exec \"npm run webpack:serve\"",
     "lint": "eslint --ext .js,.jsx controllers/ lib/ src/ tests/",
     "lint:watch": "esw --color --ext .js,.jsx --watch controllers/ lib/ src/",
@@ -42,7 +41,6 @@
     "isomorphic-fetch": "^2.2.1",
     "joi": "12.0.0",
     "node-sass": "^4.5.3",
-    "nsp": "^3.1.0",
     "query-string": "^5.0.0",
     "raven-js": "^3.17.0",
     "react": "^15.6.1",
